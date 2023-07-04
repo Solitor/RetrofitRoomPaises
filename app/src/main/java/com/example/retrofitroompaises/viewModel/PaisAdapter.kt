@@ -32,7 +32,7 @@ class PaisAdapter(var con: Context, var paisList: List<Pais>) :
     }
 
     override fun getItemCount(): Int {
-        Log.d("LOOKOUT_UAV2", "getItemCount : ${paisList.size}")
+        Log.d("LOOKOUT_UAV2", "getItemCount : ${showingList.size}")
         return showingList.size
     }
 
