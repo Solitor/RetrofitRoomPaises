@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#005DCC"
+    android:background="#393E46"
     tools:context=".MainActivity">
 
     <EditText
@@ -15,6 +15,7 @@
         android:layout_marginVertical="10dp"
         android:hint="Search"
         android:minHeight="40dp"
+        android:textColor="#EEEEEE"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

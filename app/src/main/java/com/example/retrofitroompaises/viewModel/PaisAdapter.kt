@@ -38,15 +38,33 @@ class PaisAdapter(var con: Context, var paisList: List<Pais>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("LOOKOUT_UAV2", "onBindViewHolder")
+        Log.d("LOOKOUT_UAV2", "POSITION: ${position}")
+
         val currentItem = showingList[position]
 
-        Log.d("LOOKOUT_UAV2", "POSITION: ${position}")
+        val auxNome = currentItem.nome.toString()
+
+        val auxRegiao = "Região:\n\t\t=> " + currentItem.regiao.toString()
+
+        val auxRegiaoIntermediaria = if(currentItem.regiaoIntermediaria.toString().isNullOrBlank()){
+            "Região Intermediaria:\n\t\t=> -não informada-"
+        }else{
+            "Região Intermediaria:\n\t\t=> " + currentItem.regiaoIntermediaria.toString()
+        }
+
+        val auxSubRegiao = if(currentItem.subRegiao.toString().isNullOrBlank()){
+            "Sub-Região:\n\t\t=> -não informada-"
+        }else{
+            "Sub-Região:\n\t\t=> " + currentItem.subRegiao.toString()
+        }
+
         val auxPagina = "País " + position.plus(1).toString() + " de " + showingList.size.toString()
 
-        holder.nomeVH.text = currentItem.nome.toString()
-        holder.regiaoIntermediariaVH.text = currentItem.regiaoIntermediaria.toString()
-        holder.subRegiaoVH.text = currentItem.subRegiao.toString()
-        holder.regiaoVH.text = currentItem.regiao.toString()
+
+        holder.nomeVH.text = auxNome
+        holder.regiaoVH.text = auxRegiao
+        holder.regiaoIntermediariaVH.text = auxRegiaoIntermediaria
+        holder.subRegiaoVH.text = auxSubRegiao
         holder.pagnumeroVH.text = auxPagina
 
         if (booleanMutableList[position]) {
