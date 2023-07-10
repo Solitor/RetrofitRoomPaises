@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.retrofitroompaises.data.AppDatabase
 import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.repository.PaisRepository
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class PaisViewModel(application: Application): AndroidViewModel(application) {
 
@@ -21,8 +23,13 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         allPais = repository.allPais
     }
 
-    fun insert(pais: Pais) = viewModelScope.launch(Dispatchers.IO){
-        repository.insert(pais)
+    fun insert(pais: Pais): Boolean = runBlocking {
+        val result = CompletableDeferred<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val isSuccess = repository.insert(pais)
+            result.complete(isSuccess)
+        }
+        result.await()
     }
 
     fun deleteAllPaises() = viewModelScope.launch(Dispatchers.IO) {

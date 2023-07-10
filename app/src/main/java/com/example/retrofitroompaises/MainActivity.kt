@@ -1,11 +1,15 @@
 package com.example.retrofitroompaises
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +21,7 @@ import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.model.PaisJSON
 import com.example.retrofitroompaises.viewModel.PaisAdapter
 import com.example.retrofitroompaises.viewModel.PaisViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -30,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var paisAdapter: PaisAdapter
     private lateinit var searchEditText: EditText
     private var searchQuery: String = ""
+    private lateinit var fabAddItem: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +66,11 @@ class MainActivity : AppCompatActivity() {
                 findPaisByNome(searchQuery)
             }
         })
+
+        fabAddItem = findViewById(R.id.floatingActionButton)
+        fabAddItem.setOnClickListener {
+            showAlertDialog()
+        }
     }
 
     private suspend fun insertAllPaisJSONs() {
@@ -101,5 +112,62 @@ class MainActivity : AppCompatActivity() {
                 paisAdapter.updateData(paisList)
             })
         }
+    }
+
+    private fun showAlertDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.add_item, null)
+        val addItemId = dialogView.findViewById<EditText>(R.id.addItemId)
+        val addItemNome = dialogView.findViewById<EditText>(R.id.addItemNome)
+        val addItemRegiao = dialogView.findViewById<EditText>(R.id.addItemRegiao)
+        val addItemRegiaoIntermediaria = dialogView.findViewById<EditText>(R.id.addItemRegiaoIntermediaria)
+        val addItemSubRegiao = dialogView.findViewById<EditText>(R.id.addItemSubRegiao)
+        val addItemCancel: Button = dialogView.findViewById(R.id.addItemCancel)
+        val addItemButton: Button = dialogView.findViewById(R.id.addItemButton)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+
+        addItemCancel.setOnClickListener {
+            // Handle insert button click
+            // Perform any desired action
+            dialog.dismiss()
+        }
+
+        addItemButton.setOnClickListener {
+            val itemId = addItemId.text.toString().trim()
+            val itemName = addItemNome.text.toString().trim()
+            val itemRegiao = addItemRegiao.text.toString().trim()
+            val itemRegiaoIntermediaria = addItemRegiaoIntermediaria.text.toString().trim()
+            val itemSubRegiao = addItemSubRegiao.text.toString().trim()
+
+            if (itemId.isNotEmpty() && itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                if(itemId.isDigitsOnly()){
+                    val entity = Pais(
+                        id = itemId.toInt(),
+                        nome = itemName,
+                        regiao = itemRegiao,
+                        regiaoIntermediaria = itemRegiaoIntermediaria,
+                        subRegiao = itemSubRegiao
+                    )
+                    val insertResult = paisViewModel.insert(entity)
+                    if(insertResult){
+                        Toast.makeText(this, "País adicionado: ID->$itemId", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }else{
+                        Toast.makeText(this, "Já existe um país com este ID", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Toast.makeText(this, "ID deve conter apenas numeros.", Toast.LENGTH_SHORT).show()
+                }
+
+            } else {
+                // Show an error or prompt to fill all the required fields
+                Toast.makeText(this, "ID, Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
     }
 }

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "pais_table")
 data class Pais(
-    @PrimaryKey var id: Int,
+    @PrimaryKey val id : Int,
 
     @ColumnInfo val nome: String?,
 
@@ -19,4 +19,10 @@ data class Pais(
 
     @SerializedName("regiao")
     @ColumnInfo val regiao: String?
-)
+) /*{
+    constructor(
+        nome: String?,
+        regiaoIntermediaria: String?,
+        subRegiao: String?,
+        regiao: String?) : this(0, nome, regiaoIntermediaria,subRegiao,regiao)
+}*/

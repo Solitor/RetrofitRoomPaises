@@ -11,14 +11,11 @@ import com.example.retrofitroompaises.model.Pais
 @Dao
 interface PaisDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(pais: Pais)
 
-    @Query("SELECT * FROM pais_table")
-    fun getAll(): LiveData<List<Pais>>
-
     @Query("SELECT * FROM pais_table ORDER BY nome ASC")
-    fun getAllPaisesASC(): LiveData<List<Pais>>
+    fun getAll(): LiveData<List<Pais>>
 
     @Query("DELETE FROM pais_table")
     fun deleteAll()
@@ -26,6 +23,6 @@ interface PaisDao {
     @Delete
     fun delete(pais: Pais)
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%'")
+    @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome ASC")
     fun findByNome(searchTarget: String): LiveData<List<Pais>>
 }
