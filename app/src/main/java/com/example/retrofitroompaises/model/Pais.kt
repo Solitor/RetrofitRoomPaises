@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "pais_table")
 data class Pais(
-    @PrimaryKey val id : Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
 
     @ColumnInfo val nome: String?,
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#393E46"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <EditText
@@ -13,38 +14,46 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:padding="10dp"
         android:background="#00ADB5"
         android:hint="Search"
         android:minHeight="40dp"
+        android:padding="10dp"
         android:textColor="#EEEEEE"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
-        android:scrollbarTrackVertical="@drawable/scrollbar_track"
-        android:scrollbars="vertical"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+            android:scrollbarTrackVertical="@drawable/scrollbar_track"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="LinearLayoutManager"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        app:layout_constraintVertical_bias="1"
         android:clickable="true"
+        android:contentDescription="Add Button"
         app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1"
         app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:contentDescription="Add Button" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

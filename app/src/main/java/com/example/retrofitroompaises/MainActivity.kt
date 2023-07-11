@@ -116,7 +116,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAlertDialog() {
         val dialogView = layoutInflater.inflate(R.layout.add_item, null)
-        val addItemId = dialogView.findViewById<EditText>(R.id.addItemId)
         val addItemNome = dialogView.findViewById<EditText>(R.id.addItemNome)
         val addItemRegiao = dialogView.findViewById<EditText>(R.id.addItemRegiao)
         val addItemRegiaoIntermediaria = dialogView.findViewById<EditText>(R.id.addItemRegiaoIntermediaria)
@@ -136,35 +135,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         addItemButton.setOnClickListener {
-            val itemId = addItemId.text.toString().trim()
             val itemName = addItemNome.text.toString().trim()
             val itemRegiao = addItemRegiao.text.toString().trim()
             val itemRegiaoIntermediaria = addItemRegiaoIntermediaria.text.toString().trim()
             val itemSubRegiao = addItemSubRegiao.text.toString().trim()
 
-            if (itemId.isNotEmpty() && itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                if(itemId.isDigitsOnly()){
-                    val entity = Pais(
-                        id = itemId.toInt(),
-                        nome = itemName,
-                        regiao = itemRegiao,
-                        regiaoIntermediaria = itemRegiaoIntermediaria,
-                        subRegiao = itemSubRegiao
-                    )
-                    val insertResult = paisViewModel.insert(entity)
-                    if(insertResult){
-                        Toast.makeText(this, "País adicionado: ID->$itemId", Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
-                    }else{
-                        Toast.makeText(this, "Já existe um país com este ID", Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-                    Toast.makeText(this, "ID deve conter apenas numeros.", Toast.LENGTH_SHORT).show()
-                }
-
+            if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                val entity = Pais(
+                    nome = itemName,
+                    regiao = itemRegiao,
+                    regiaoIntermediaria = itemRegiaoIntermediaria,
+                    subRegiao = itemSubRegiao
+                )
+                paisViewModel.insert(entity)
+                Toast.makeText(this, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             } else {
                 // Show an error or prompt to fill all the required fields
-                Toast.makeText(this, "ID, Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.retrofitroompaises.model.Pais
 
-@Database(entities = [Pais::class], version = 1, exportSchema = false)
+@Database(entities = [Pais::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun paisDao(): PaisDao
 
