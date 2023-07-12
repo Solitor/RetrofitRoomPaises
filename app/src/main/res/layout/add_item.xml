@@ -11,7 +11,6 @@
 
     <TextView
         android:id="@+id/addItemTextView"
-        android:textAppearance="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -19,6 +18,7 @@
         android:padding="10dp"
         android:text="INSERIR PAÍS"
         android:textAlignment="center"
+        android:textAppearance="@null"
         android:textColor="#eeeeee"
         android:textSize="32dp" />
 
@@ -29,8 +29,8 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Nome"
         android:padding="10dp"
-        android:textColor="#393E46"
-        android:textColorHint="#eeeeee"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
         android:textSize="24dp" />
 
     <EditText
@@ -40,8 +40,8 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Regiao"
         android:padding="10dp"
-        android:textColor="#393E46"
-        android:textColorHint="#eeeeee"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
         android:textSize="24dp" />
 
     <EditText
@@ -51,7 +51,8 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Regiao Intermediaria"
         android:padding="10dp"
-        android:textColorHint="#eeeeee"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
         android:textSize="24dp" />
 
     <EditText
@@ -61,16 +62,16 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Sub-Regiao"
         android:padding="10dp"
-        android:textColor="#393E46"
-        android:textColorHint="#eeeeee"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
         android:textSize="24dp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <Button

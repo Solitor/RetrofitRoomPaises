@@ -1,11 +1,13 @@
 package com.example.retrofitroompaises
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -35,7 +37,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var paisAdapter: PaisAdapter
     private lateinit var searchEditText: EditText
     private var searchQuery: String = ""
-    private lateinit var fabAddItem: FloatingActionButton
+    private lateinit var fabMenu: FloatingActionButton
+    private lateinit var fabBack: FloatingActionButton
+    private lateinit var fabAdd: FloatingActionButton
+    private lateinit var fabEdit: FloatingActionButton
+    private lateinit var fabDelete: FloatingActionButton
+    private lateinit var fabReset: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +55,7 @@ class MainActivity : AppCompatActivity() {
         paisAdapter = PaisAdapter(this, emptyList()) // Initialize the adapter with an empty list
         recyclerView.adapter = paisAdapter
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            insertAllPaisJSONs()
-        }
+        //resetJsonOperation()
 
         Log.d("LOOKOUT_UAV2", "findPaisByNome call inicial")
         findPaisByNome(searchQuery)
@@ -67,18 +72,63 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        fabAddItem = findViewById(R.id.floatingActionButton)
-        fabAddItem.setOnClickListener {
-            showAlertDialog()
+        fabMenu = findViewById(R.id.floatingActionButtonMenu)
+        fabBack = findViewById(R.id.floatingActionButtonBack)
+        fabAdd = findViewById(R.id.floatingActionButtonAdd)
+        fabEdit = findViewById(R.id.floatingActionButtonEdit)
+        fabDelete = findViewById(R.id.floatingActionButtonDelete)
+        fabReset = findViewById(R.id.floatingActionButtonReset)
+        closeMenu()
+
+        fabMenu.setOnClickListener {
+            openMenu()
         }
+        fabBack.setOnClickListener {
+            closeMenu()
+        }
+        fabAdd.setOnClickListener {
+            showAddAlertDialog()
+            closeMenu()
+        }
+        fabDelete.setOnClickListener {
+            showDeleteAlertDialog()
+            closeMenu()
+        }
+        fabReset.setOnClickListener {
+            showResetAlertDialog()
+            closeMenu()
+        }
+
     }
 
+    private fun closeMenu() {
+        fabMenu.visibility = View.VISIBLE
+        fabBack.visibility = View.GONE
+        fabAdd.visibility = View.GONE
+        fabEdit.visibility = View.GONE
+        fabDelete.visibility = View.GONE
+        fabReset.visibility = View.GONE
+    }
+
+    private fun openMenu() {
+        fabMenu.visibility = View.GONE
+        fabBack.visibility = View.VISIBLE
+        fabAdd.visibility = View.VISIBLE
+        fabEdit.visibility = View.VISIBLE
+        fabDelete.visibility = View.VISIBLE
+        fabReset.visibility = View.VISIBLE
+    }
+
+    private fun resetJsonOperation(){
+        lifecycleScope.launch(Dispatchers.IO) {
+            insertAllPaisJSONs()
+        }
+    }
     private suspend fun insertAllPaisJSONs() {
         try {
             val response = apiService.getPaisesJSON()
             if (response.isSuccessful) {
                 Log.d("LOOKOUT_UAV", "API request successful")
-                paisViewModel.deleteAllPaises()
                 val responseBody = response.body()
                 responseBody?.forEach {
                     val entity = Pais(
@@ -114,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showAlertDialog() {
+    private fun showAddAlertDialog() {
         val dialogView = layoutInflater.inflate(R.layout.add_item, null)
         val addItemNome = dialogView.findViewById<EditText>(R.id.addItemNome)
         val addItemRegiao = dialogView.findViewById<EditText>(R.id.addItemRegiao)
@@ -157,5 +207,41 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+
+    private fun showDeleteAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Delete Operation")
+        alertDialogBuilder.setMessage("Esta operação deletará todos os itens da database, tem certeza que deseja prosseguir ?")
+        alertDialogBuilder.setPositiveButton("Sim, deletar conteúdo.") { dialog: DialogInterface, _: Int ->
+            paisViewModel.deleteAllPaises()
+            findPaisByNome("")
+            dialog.dismiss()
+            Toast.makeText(this, "Países deletados", Toast.LENGTH_SHORT).show()
+        }
+        alertDialogBuilder.setNegativeButton("Não, abortar.") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun showResetAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Reset Operation")
+        alertDialogBuilder.setMessage("Esta operação irá reinserir todos os paises da Json-Api na database, tem certeza que deseja prosseguir ?")
+        alertDialogBuilder.setPositiveButton("Sim, reinserir conteúdo.") { dialog: DialogInterface, _: Int ->
+            resetJsonOperation()
+            findPaisByNome("")
+            dialog.dismiss()
+            Toast.makeText(this, "Países reinseridos", Toast.LENGTH_SHORT).show()
+        }
+        alertDialogBuilder.setNegativeButton("Não, abortar.") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 }
