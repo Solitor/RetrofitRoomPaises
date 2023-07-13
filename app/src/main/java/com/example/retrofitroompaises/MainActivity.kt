@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabMenu: FloatingActionButton
     private lateinit var fabBack: FloatingActionButton
     private lateinit var fabAdd: FloatingActionButton
-    private lateinit var fabEdit: FloatingActionButton
     private lateinit var fabDelete: FloatingActionButton
     private lateinit var fabReset: FloatingActionButton
 
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         searchEditText = findViewById(R.id.search_bar)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        paisAdapter = PaisAdapter(this, emptyList()) // Initialize the adapter with an empty list
+        paisAdapter = PaisAdapter(this, emptyList(), paisViewModel) // Initialize the adapter with an empty list
         recyclerView.adapter = paisAdapter
 
         //resetJsonOperation()
@@ -75,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         fabMenu = findViewById(R.id.floatingActionButtonMenu)
         fabBack = findViewById(R.id.floatingActionButtonBack)
         fabAdd = findViewById(R.id.floatingActionButtonAdd)
-        fabEdit = findViewById(R.id.floatingActionButtonEdit)
         fabDelete = findViewById(R.id.floatingActionButtonDelete)
         fabReset = findViewById(R.id.floatingActionButtonReset)
         closeMenu()
@@ -105,7 +103,6 @@ class MainActivity : AppCompatActivity() {
         fabMenu.visibility = View.VISIBLE
         fabBack.visibility = View.GONE
         fabAdd.visibility = View.GONE
-        fabEdit.visibility = View.GONE
         fabDelete.visibility = View.GONE
         fabReset.visibility = View.GONE
     }
@@ -114,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         fabMenu.visibility = View.GONE
         fabBack.visibility = View.VISIBLE
         fabAdd.visibility = View.VISIBLE
-        fabEdit.visibility = View.VISIBLE
         fabDelete.visibility = View.VISIBLE
         fabReset.visibility = View.VISIBLE
     }

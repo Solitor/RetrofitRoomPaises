@@ -43,4 +43,23 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
     fun findByNome(searchTarget: String): LiveData<List<Pais>>{
         return repository.findByNome(searchTarget)
     }
+
+    fun delete(pais: Pais): Boolean = runBlocking {
+        val result = CompletableDeferred<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val isSuccess = repository.delete(pais)
+            result.complete(isSuccess)
+        }
+        result.await()
+    }
+
+    fun deleteById(id: Int): Boolean = runBlocking {
+        val result = CompletableDeferred<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val isSuccess = repository.deleteById(id)
+            result.complete(isSuccess)
+        }
+        result.await()
+    }
+
 }

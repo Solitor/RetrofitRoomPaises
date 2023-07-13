@@ -23,6 +23,9 @@ interface PaisDao {
     @Delete
     fun delete(pais: Pais)
 
+    @Query("DELETE FROM pais_table WHERE id = :id")
+    fun deleteById(id: Int)
+
     @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
     fun findByNome(searchTarget: String): LiveData<List<Pais>>
 }

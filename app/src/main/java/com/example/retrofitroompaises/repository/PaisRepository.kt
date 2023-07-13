@@ -30,9 +30,30 @@ class PaisRepository(private val paisDao: PaisDao) {
         paisDao.deleteAll()
     }
 
-    fun delete(pais: Pais){
-        paisDao.delete(pais)
+    fun delete(pais: Pais): Boolean {
+        return try {
+            paisDao.delete(pais)
+            // Insertion successful, no duplicate ID
+            true
+        } catch (e: SQLiteConstraintException) {
+            // Duplicate ID, handle the conflict here
+            Log.e("deleteError", "Pais not found")
+            false
+        }
     }
+
+    fun deleteById(id: Int): Boolean {
+        return try {
+            paisDao.deleteById(id)
+            // Insertion successful, no duplicate ID
+            true
+        } catch (e: SQLiteConstraintException) {
+            // Duplicate ID, handle the conflict here
+            Log.e("deleteError", "ID not found")
+            false
+        }
+    }
+
 
     fun findByNome(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findByNome(searchTarget)

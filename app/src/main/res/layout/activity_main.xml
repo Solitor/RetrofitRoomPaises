@@ -92,20 +92,6 @@
         app:maxImageSize="45dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#FF703B"
-        android:clickable="true"
-        android:contentDescription="Add Button"
-        app:fabCustomSize="60dp"
-        app:layout_constraintBottom_toTopOf="@id/floatingActionButtonAdd"
-        app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="45dp"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonDelete"
@@ -117,7 +103,7 @@
         android:clickable="true"
         android:contentDescription="Add Button"
         app:fabCustomSize="60dp"
-        app:layout_constraintBottom_toTopOf="@id/floatingActionButtonEdit"
+        app:layout_constraintBottom_toTopOf="@id/floatingActionButtonAdd"
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="45dp"
         app:srcCompat="@android:drawable/ic_menu_delete" />
