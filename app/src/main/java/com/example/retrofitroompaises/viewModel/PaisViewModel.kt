@@ -32,6 +32,10 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         result.await()
     }
 
+    fun update(pais:Pais) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(pais)
+    }
+
     fun deleteAllPaises() = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }

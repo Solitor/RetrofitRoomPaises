@@ -22,6 +22,10 @@ class PaisRepository(private val paisDao: PaisDao) {
         }
     }
 
+    fun update(pais : Pais){
+        paisDao.update(pais)
+    }
+
     fun getAll(): LiveData<List<Pais>>{
         return paisDao.getAll()
     }

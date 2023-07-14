@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.retrofitroompaises.model.Pais
 
 @Dao
@@ -22,6 +23,9 @@ interface PaisDao {
 
     @Delete
     fun delete(pais: Pais)
+
+    @Update
+    fun update(pais: Pais)
 
     @Query("DELETE FROM pais_table WHERE id = :id")
     fun deleteById(id: Int)
