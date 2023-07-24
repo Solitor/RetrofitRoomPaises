@@ -137,25 +137,30 @@ class PaisAdapter(var con: Context, var paisList: List<Pais>, var paisViewModel:
         }
 
         editItemButton.setOnClickListener {
-            val itemName = editItemNome.text.toString().trim().takeIf { it.isNotEmpty() } ?: pais.nome.toString()
-            val itemRegiao = editItemRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiao.toString()
-            val itemRegiaoIntermediaria = editItemRegiaoIntermediaria.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiaoIntermediaria.toString()
-            val itemSubRegiao = editItemSubRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.subRegiao.toString()
+            if(editItemNome.text.isBlank() && editItemRegiao.text.isBlank() && editItemRegiaoIntermediaria.text.isBlank() && editItemSubRegiao.text.isBlank()){
+                Toast.makeText(con,"Digite nos campos acima para fazer edições no país.",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val itemName = editItemNome.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.nome.toString()
+                val itemRegiao = editItemRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiao.toString()
+                val itemRegiaoIntermediaria = editItemRegiaoIntermediaria.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiaoIntermediaria.toString()
+                val itemSubRegiao = editItemSubRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.subRegiao.toString()
 
-            if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                val entity = Pais(
-                    id = pais.id,
-                    nome = itemName,
-                    regiao = itemRegiao,
-                    regiaoIntermediaria = itemRegiaoIntermediaria,
-                    subRegiao = itemSubRegiao
-                )
-                paisViewModel.update(entity)
-                Toast.makeText(con, "Edição efetuada: $itemName", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            } else {
-                // Show an error or prompt to fill all the required fields
-                Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                    val entity = Pais(
+                        id = pais.id,
+                        nome = itemName,
+                        regiao = itemRegiao,
+                        regiaoIntermediaria = itemRegiaoIntermediaria,
+                        subRegiao = itemSubRegiao
+                    )
+                    paisViewModel.update(entity)
+                    Toast.makeText(con, "Edição efetuada: $itemName", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } else {
+                    // Show an error or prompt to fill all the required fields
+                    Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
