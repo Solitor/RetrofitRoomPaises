@@ -1,3 +1,4 @@
+
 package com.example.retrofitroompaises
 
 import android.app.AlertDialog
@@ -12,6 +13,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabAdd: FloatingActionButton
     private lateinit var fabDelete: FloatingActionButton
     private lateinit var fabReset: FloatingActionButton
+    private lateinit var fabFragment: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +94,11 @@ class MainActivity : AppCompatActivity() {
         fabReset.setOnClickListener {
             showResetAlertDialog()
             closeMenu()
+        }
+
+        fabFragment = findViewById(R.id.floatingActionButtonFragment)
+        fabFragment.setOnClickListener {
+            openMyFragment()
         }
 
     }
@@ -234,5 +243,23 @@ class MainActivity : AppCompatActivity() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun openMyFragment() {
+        // Create an instance of your fragment
+        val myFragment = MyFragment()
+
+        // Get the FragmentManager and start a transaction
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
+        // Replace the container (FrameLayout) with the fragment
+        fragmentTransaction.replace(R.id.masterConstraintLayout, myFragment)
+
+        // Add the transaction to the back stack (optional but allows going back)
+        fragmentTransaction.addToBackStack(null)
+
+        // Commit the transaction
+        fragmentTransaction.commit()
     }
 }

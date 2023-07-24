@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/masterConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#393E46"
@@ -122,6 +123,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="45dp"
         app:srcCompat="@android:drawable/ic_menu_rotate" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#A2EF08"
+        android:clickable="true"
+        android:contentDescription="Fragment Button"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="45dp"
+        app:srcCompat="@android:drawable/ic_menu_search" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
