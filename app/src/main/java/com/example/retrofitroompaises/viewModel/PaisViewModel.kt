@@ -48,6 +48,18 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         return repository.findByNome(searchTarget)
     }
 
+    fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findByRegiao(searchTarget)
+    }
+
+    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findByRegiaoIntermediaria(searchTarget)
+    }
+
+    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findBySubRegiao(searchTarget)
+    }
+
     fun delete(pais: Pais): Boolean = runBlocking {
         val result = CompletableDeferred<Boolean>()
         viewModelScope.launch(Dispatchers.IO) {

@@ -19,10 +19,4 @@ data class Pais(
 
     @SerializedName("regiao")
     @ColumnInfo val regiao: String?
-) /*{
-    constructor(
-        nome: String?,
-        regiaoIntermediaria: String?,
-        subRegiao: String?,
-        regiao: String?) : this(0, nome, regiaoIntermediaria,subRegiao,regiao)
-}*/
+)

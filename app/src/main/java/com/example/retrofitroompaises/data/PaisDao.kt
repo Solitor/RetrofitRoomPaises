@@ -32,4 +32,13 @@ interface PaisDao {
 
     @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
     fun findByNome(searchTarget: String): LiveData<List<Pais>>
+
+    @Query("SELECT * FROM pais_table WHERE LOWER(regiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
+    fun findByRegiao(searchTarget: String): LiveData<List<Pais>>
+
+    @Query("SELECT * FROM pais_table WHERE LOWER(regiaoIntermediaria) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
+    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>>
+
+    @Query("SELECT * FROM pais_table WHERE LOWER(subRegiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
+    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>>
 }

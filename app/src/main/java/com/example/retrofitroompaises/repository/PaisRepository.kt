@@ -58,8 +58,19 @@ class PaisRepository(private val paisDao: PaisDao) {
         }
     }
 
-
     fun findByNome(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findByNome(searchTarget)
+    }
+
+    fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findByRegiao(searchTarget)
+    }
+
+    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findByRegiaoIntermediaria(searchTarget)
+    }
+
+    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findBySubRegiao(searchTarget)
     }
 }

@@ -1,3 +1,11 @@
 <resources>
+
     <string name="app_name">RetrofitRoomPaises</string>
+
+    <string-array name="filter_options">
+        <item>Região</item>
+        <item>Região Intermediaria</item>
+        <item>Sub-Região</item>
+    </string-array>
+
 </resources>
