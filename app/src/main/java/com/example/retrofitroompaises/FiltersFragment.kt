@@ -18,7 +18,6 @@ import com.example.retrofitroompaises.data.RetrofitClient
 import com.example.retrofitroompaises.handler.AlertDialogHandler
 import com.example.retrofitroompaises.handler.DataHandler
 import com.example.retrofitroompaises.handler.JsonHandler
-import com.example.retrofitroompaises.handler.MenuHandler
 import com.example.retrofitroompaises.viewModel.PaisAdapter
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 
