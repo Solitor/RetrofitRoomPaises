@@ -20,6 +20,7 @@ import com.example.retrofitroompaises.handler.DataHandler
 import com.example.retrofitroompaises.handler.JsonHandler
 import com.example.retrofitroompaises.viewModel.PaisAdapter
 import com.example.retrofitroompaises.viewModel.PaisViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
 
@@ -31,6 +32,7 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private lateinit var dataHandler: DataHandler
     private lateinit var jsonHandler: JsonHandler
     private lateinit var spinnerFilter: Spinner
+    private lateinit var fabBackFragment: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +81,12 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
                 filterData(searchQuery, spinnerFilter.selectedItemPosition)
             }
         })
+
+        fabBackFragment = view.findViewById(R.id.fragmentFilter_fabBackFragment)
+        fabBackFragment.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
+
 
         return view
     }
