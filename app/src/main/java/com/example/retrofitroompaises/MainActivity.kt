@@ -10,9 +10,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            val mainFragment = MainFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.masterFrameLayout, mainFragment)
+                .replace(R.id.masterFrameLayout, StartFragment())
                 .commit()
         }
     }
