@@ -90,20 +90,23 @@ class MainFragment : Fragment() {
             menuHandler.closeMenu()
         }
 
-        menuHandler.fabFragment.setOnClickListener {
-            openMyFragment(paisViewModel)
+        menuHandler.fabFilterFragment.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.masterFrameLayout, FiltersFragment(paisViewModel))
+                .addToBackStack(null)
+                .commit()
+        }
+
+        menuHandler.fabIdFragment.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.masterFrameLayout, IdFragment(paisViewModel))
+                .addToBackStack(null)
+                .commit()
         }
 
         return view
 
     }
 
-    private fun openMyFragment(paisViewModel: PaisViewModel) {
-        val filtersFragment = FiltersFragment(paisViewModel)
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.masterFrameLayout, filtersFragment)
-            .addToBackStack(null)
-            .commit()
-    }
 
 }
