@@ -18,6 +18,9 @@ interface PaisDao {
     @Query("SELECT * FROM pais_table ORDER BY nome COLLATE NOCASE ASC")
     fun getAll(): LiveData<List<Pais>>
 
+    @Query("SELECT * FROM pais_table ORDER BY id COLLATE NOCASE ASC")
+    fun getAllById(): LiveData<List<Pais>>
+
     @Query("DELETE FROM pais_table")
     fun deleteAll()
 
@@ -32,6 +35,9 @@ interface PaisDao {
 
     @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
     fun findByNome(searchTarget: String): LiveData<List<Pais>>
+
+    @Query("SELECT * FROM pais_table WHERE LOWER(id) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY id COLLATE NOCASE ASC")
+    fun findById(searchTarget: String): LiveData<List<Pais>>
 
     @Query("SELECT * FROM pais_table WHERE LOWER(regiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
     fun findByRegiao(searchTarget: String): LiveData<List<Pais>>

@@ -7,18 +7,18 @@ import com.example.retrofitroompaises.viewModel.PaisViewModel
 
 class DataHandler(
     private val paisViewModel: PaisViewModel,
-    private val paisAdapter: PaisAdapter,
+    private val adapter: PaisAdapter,
     private val viewLifecycleOwner: LifecycleOwner
 ) {
 
     fun findPaisByNome(busca: String) {
         if (busca.isEmpty()) {
             paisViewModel.getAllPaises().observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList) // Update the adapter's data when the list changes
+                adapter.updateData(paisList) // Update the adapter's data when the list changes
             })
         } else {
             paisViewModel.findByNome(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList)
+                adapter.updateData(paisList)
             })
         }
     }
@@ -26,11 +26,11 @@ class DataHandler(
     fun findPaisByRegiao(busca: String) {
         if (busca.isEmpty()) {
             paisViewModel.getAllPaises().observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList) // Update the adapter's data when the list changes
+                adapter.updateData(paisList) // Update the adapter's data when the list changes
             })
         } else {
             paisViewModel.findByRegiao(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList)
+                adapter.updateData(paisList)
             })
         }
     }
@@ -38,11 +38,11 @@ class DataHandler(
     fun findPaisByRegiaoIntermediaria(busca: String) {
         if (busca.isEmpty()) {
             paisViewModel.getAllPaises().observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList) // Update the adapter's data when the list changes
+                adapter.updateData(paisList) // Update the adapter's data when the list changes
             })
         } else {
             paisViewModel.findByRegiaoIntermediaria(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList)
+                adapter.updateData(paisList)
             })
         }
     }
@@ -50,11 +50,11 @@ class DataHandler(
     fun findPaisBySubRegiao(busca: String) {
         if (busca.isEmpty()) {
             paisViewModel.getAllPaises().observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList) // Update the adapter's data when the list changes
+                adapter.updateData(paisList) // Update the adapter's data when the list changes
             })
         } else {
             paisViewModel.findBySubRegiao(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                paisAdapter.updateData(paisList)
+                adapter.updateData(paisList)
             })
         }
     }

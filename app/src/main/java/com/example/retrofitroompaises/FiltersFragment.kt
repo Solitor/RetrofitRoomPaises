@@ -32,6 +32,7 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private lateinit var dataHandler: DataHandler
     private lateinit var jsonHandler: JsonHandler
     private lateinit var spinnerFilter: Spinner
+    private lateinit var fabAdd: FloatingActionButton
     private lateinit var fabBackFragment: FloatingActionButton
 
     override fun onCreateView(
@@ -81,6 +82,11 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
                 filterData(searchQuery, spinnerFilter.selectedItemPosition)
             }
         })
+
+        fabAdd = view.findViewById(R.id.fragmentFilter_fabAdd)
+        fabAdd.setOnClickListener{
+            alertDialogHandler.showAddAlertDialog()
+        }
 
         fabBackFragment = view.findViewById(R.id.fragmentFilter_fabBackFragment)
         fabBackFragment.setOnClickListener{
