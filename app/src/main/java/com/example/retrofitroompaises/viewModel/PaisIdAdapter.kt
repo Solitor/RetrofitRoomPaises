@@ -119,14 +119,16 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
     }
 
     private fun buttonEditAlertDialog(pais : Pais) {
-        val dialogView = LayoutInflater.from(con).inflate(R.layout.edit_item, null)
-        val editItemNome = dialogView.findViewById<EditText>(R.id.editItemNome)
-        val editItemRegiao = dialogView.findViewById<EditText>(R.id.editItemRegiao)
-        val editItemRegiaoIntermediaria = dialogView.findViewById<EditText>(R.id.editItemRegiaoIntermediaria)
-        val editItemSubRegiao = dialogView.findViewById<EditText>(R.id.editItemSubRegiao)
-        val editItemCancel: Button = dialogView.findViewById(R.id.editItemCancel)
-        val editItemButton: Button = dialogView.findViewById(R.id.editItemButton)
+        val dialogView = LayoutInflater.from(con).inflate(R.layout.edit_id_item, null)
+        val editItemId = dialogView.findViewById<EditText>(R.id.editIdItemId)
+        val editItemNome = dialogView.findViewById<EditText>(R.id.editIdItemNome)
+        val editItemRegiao = dialogView.findViewById<EditText>(R.id.editIdItemRegiao)
+        val editItemRegiaoIntermediaria = dialogView.findViewById<EditText>(R.id.editIdItemRegiaoIntermediaria)
+        val editItemSubRegiao = dialogView.findViewById<EditText>(R.id.editIdItemSubRegiao)
+        val editItemCancel: Button = dialogView.findViewById(R.id.editIdItemCancel)
+        val editItemButton: Button = dialogView.findViewById(R.id.editIdItemButton)
 
+        editItemId.hint = pais.id.toString()
         editItemNome.hint = pais.nome.toString()
         editItemRegiao.hint = pais.regiao.toString()
         editItemRegiaoIntermediaria.hint = pais.regiaoIntermediaria.toString()
@@ -144,30 +146,56 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
         }
 
         editItemButton.setOnClickListener {
-            if(editItemNome.text.isBlank() && editItemRegiao.text.isBlank() && editItemRegiaoIntermediaria.text.isBlank() && editItemSubRegiao.text.isBlank()){
+            if(editItemId.text.isBlank() && editItemNome.text.isBlank() && editItemRegiao.text.isBlank() && editItemRegiaoIntermediaria.text.isBlank() && editItemSubRegiao.text.isBlank()){
                 Toast.makeText(con,"Digite nos campos acima para fazer edições no país.",Toast.LENGTH_SHORT).show()
             }
             else{
+                val itemId = editItemId.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.id.toString()
                 val itemName = editItemNome.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.nome.toString()
                 val itemRegiao = editItemRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiao.toString()
                 val itemRegiaoIntermediaria = editItemRegiaoIntermediaria.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiaoIntermediaria.toString()
                 val itemSubRegiao = editItemSubRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.subRegiao.toString()
 
-                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                    val entity = Pais(
-                        id = pais.id,
-                        nome = itemName,
-                        regiao = itemRegiao,
-                        regiaoIntermediaria = itemRegiaoIntermediaria,
-                        subRegiao = itemSubRegiao
-                    )
-                    paisViewModel.update(entity)
-                    Toast.makeText(con, "Edição efetuada: $itemName", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                } else {
-                    // Show an error or prompt to fill all the required fields
-                    Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                if(editItemId.text.toString().isBlank()){
+                    if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                        val entity = Pais(
+                            id = pais.id,
+                            nome = itemName,
+                            regiao = itemRegiao,
+                            regiaoIntermediaria = itemRegiaoIntermediaria,
+                            subRegiao = itemSubRegiao
+                        )
+
+                        paisViewModel.update(entity)
+                        Toast.makeText(con, "Edição efetuada: ID ${pais.id.toString()}", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    } else {
+                        // Show an error or prompt to fill all the required fields
+                        Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                        val entity = Pais(
+                            id = itemId.toInt(),
+                            nome = itemName,
+                            regiao = itemRegiao,
+                            regiaoIntermediaria = itemRegiaoIntermediaria,
+                            subRegiao = itemSubRegiao
+                        )
+                        if(paisViewModel.insert(entity)){
+                            paisViewModel.deleteById(pais.id ?: 0)
+                            Toast.makeText(con, "Edição efetuada: ID ${itemId}", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        } else {
+                            Toast.makeText(con, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    } else {
+                        // Show an error or prompt to fill all the required fields
+                        Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                    }
                 }
+
             }
         }
 
@@ -177,12 +205,12 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
     private fun buttonDeleteAlertDialog(pais : Pais) {
         val alertDialogBuilder = AlertDialog.Builder(con)
         val id: Int = pais.id ?: 0
-        alertDialogBuilder.setTitle("Deletar País")
-        alertDialogBuilder.setMessage("O país ${pais.nome} será deletado, deseja continuar ?")
+        alertDialogBuilder.setTitle("Deletar Id")
+        alertDialogBuilder.setMessage("O Id ${pais.id} será deletado, deseja continuar ?")
         alertDialogBuilder.setPositiveButton("Sim, deletar.") { dialog: DialogInterface, _: Int ->
             if(paisViewModel.deleteById(id)){
                 dialog.dismiss()
-                Toast.makeText(con, "País deletado.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(con, "Id deletado.", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(con, "Error ID not found", Toast.LENGTH_SHORT).show()
             }

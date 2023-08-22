@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +32,7 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private lateinit var alertDialogIdHandler: AlertDialogIdHandler
     private lateinit var dataIdHandler: DataIdHandler
     private lateinit var jsonHandler: JsonHandler
+    private lateinit var spinnerFilter: Spinner
     private lateinit var fabAdd: FloatingActionButton
     private lateinit var fabBackFragment: FloatingActionButton
     override fun onCreateView(
@@ -54,6 +57,20 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
 
         dataIdHandler.findPaisById(searchQuery)
 
+        spinnerFilter = view.findViewById(R.id.fragmentId_SpinnerFilter)
+
+        spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
+            ) {
+                filterData(searchQuery, position) // Call a method to filter the data based on the selected option
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                spinnerFilter.setSelection(0)
+                filterData(searchQuery, 0)
+            }
+        }
+
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -62,7 +79,7 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 searchQuery = s.toString().trim()
                 Log.d("LOOKOUT_UAV2", "findPaisByNome call searchEditText")
-                dataIdHandler.findPaisById(searchQuery)
+                filterData(searchQuery, spinnerFilter.selectedItemPosition)
             }
         })
 
@@ -77,5 +94,16 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
         }
 
         return view
+    }
+
+    private fun filterData(searchQuery: String, filterOption: Int) {
+        when (filterOption) {
+            0 -> {
+                dataIdHandler.findPaisById(searchQuery)
+            }
+            1 -> {
+                dataIdHandler.findPaisByIdDesc(searchQuery)
+            }
+        }
     }
 }

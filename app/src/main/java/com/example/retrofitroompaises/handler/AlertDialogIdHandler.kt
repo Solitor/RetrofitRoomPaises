@@ -18,14 +18,15 @@ class AlertDialogIdHandler(
     private val jsonHandler: JsonHandler
 ) {
     fun showAddAlertDialog() {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.add_item, null)
-        val addItemNome = dialogView.findViewById<EditText>(R.id.addItemNome)
-        val addItemRegiao = dialogView.findViewById<EditText>(R.id.addItemRegiao)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.add_id_item, null)
+        val addItemId = dialogView.findViewById<EditText>(R.id.addIdItemId)
+        val addItemNome = dialogView.findViewById<EditText>(R.id.addIdItemNome)
+        val addItemRegiao = dialogView.findViewById<EditText>(R.id.addIdItemRegiao)
         val addItemRegiaoIntermediaria =
-            dialogView.findViewById<EditText>(R.id.addItemRegiaoIntermediaria)
-        val addItemSubRegiao = dialogView.findViewById<EditText>(R.id.addItemSubRegiao)
-        val addItemCancel: Button = dialogView.findViewById(R.id.addItemCancel)
-        val addItemButton: Button = dialogView.findViewById(R.id.addItemButton)
+            dialogView.findViewById<EditText>(R.id.addIdItemRegiaoIntermediaria)
+        val addItemSubRegiao = dialogView.findViewById<EditText>(R.id.addIdItemSubRegiao)
+        val addItemCancel: Button = dialogView.findViewById(R.id.addIdItemCancel)
+        val addItemButton: Button = dialogView.findViewById(R.id.addIdItemButton)
 
         val builder = AlertDialog.Builder(context)
         builder.setView(dialogView)
@@ -36,24 +37,47 @@ class AlertDialogIdHandler(
             dialog.dismiss()
         }
         addItemButton.setOnClickListener {
+            val itemId = addItemId.text.toString().trim()
             val itemName = addItemNome.text.toString().trim()
             val itemRegiao = addItemRegiao.text.toString().trim()
             val itemRegiaoIntermediaria = addItemRegiaoIntermediaria.text.toString().trim()
             val itemSubRegiao = addItemSubRegiao.text.toString().trim()
 
-            if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                val entity = Pais(
-                    nome = itemName,
-                    regiao = itemRegiao,
-                    regiaoIntermediaria = itemRegiaoIntermediaria,
-                    subRegiao = itemSubRegiao
-                )
-                paisViewModel.insert(entity)
-                Toast.makeText(context, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
+            if(itemId.isEmpty()){
+                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                    val entity = Pais(
+                        nome = itemName,
+                        regiao = itemRegiao,
+                        regiaoIntermediaria = itemRegiaoIntermediaria,
+                        subRegiao = itemSubRegiao
+                    )
+                    paisViewModel.insert(entity)
+                    Toast.makeText(context, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(context, "Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT)
+                        .show()
+                }
             } else {
-                Toast.makeText(context, "Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT)
-                    .show()
+                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
+                    val entity = Pais(
+                        id = itemId.toInt(),
+                        nome = itemName,
+                        regiao = itemRegiao,
+                        regiaoIntermediaria = itemRegiaoIntermediaria,
+                        subRegiao = itemSubRegiao
+                    )
+                    if(paisViewModel.insert(entity)){
+                        Toast.makeText(context, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    } else {
+                        Toast.makeText(context, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(context, "Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
         dialog.show()

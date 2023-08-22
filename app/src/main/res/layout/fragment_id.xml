@@ -24,29 +24,27 @@
         android:textColor="#EEEEEE"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/fragmentId_TextView"
+    <Spinner
+        android:id="@+id/fragmentId_SpinnerFilter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:background="#A2EF08"
-        android:gravity="center"
+        android:entries="@array/id_options"
         android:minHeight="40dp"
         android:padding="10dp"
-        android:text="IDs"
-        android:textColor="#EEEEEE"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentId_SearchBar" />
+        android:textAlignment="center"
+        android:textColor="#393E46"
+        app:layout_constraintTop_toBottomOf="@id/fragmentId_SearchBar"
+        tools:layout_editor_absoluteX="20dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentId_TextView">
+        app:layout_constraintTop_toBottomOf="@+id/fragmentId_SpinnerFilter">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragmentId_RecyclerView"

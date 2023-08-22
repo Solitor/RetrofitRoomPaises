@@ -34,6 +34,10 @@ class PaisRepository(private val paisDao: PaisDao) {
         return paisDao.getAllById()
     }
 
+    fun getAllByIdDesc(): LiveData<List<Pais>>{
+        return paisDao.getAllByIdDesc()
+    }
+
     fun deleteAll(){
         paisDao.deleteAll()
     }
@@ -69,6 +73,11 @@ class PaisRepository(private val paisDao: PaisDao) {
     fun findById(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findById(searchTarget)
     }
+
+    fun findByIdDesc(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findByIdDesc(searchTarget)
+    }
+
 
     fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findByRegiao(searchTarget)

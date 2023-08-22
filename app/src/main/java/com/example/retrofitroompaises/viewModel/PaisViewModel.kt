@@ -48,12 +48,20 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAllById()
     }
 
+    fun getAllPaisesByIdDesc(): LiveData<List<Pais>> {
+        return repository.getAllByIdDesc()
+    }
+
     fun findByNome(searchTarget: String): LiveData<List<Pais>>{
         return repository.findByNome(searchTarget)
     }
 
     fun findById(searchTarget: String): LiveData<List<Pais>>{
         return repository.findById(searchTarget)
+    }
+
+    fun findByIdDesc(searchTarget: String): LiveData<List<Pais>>{
+        return repository.findByIdDesc(searchTarget)
     }
 
     fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {

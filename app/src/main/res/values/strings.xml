@@ -8,4 +8,9 @@
         <item>Sub-Região</item>
     </string-array>
 
+    <string-array name="id_options">
+        <item>IDs (ascendentes) ↓</item>
+        <item>IDs (descendentes) ↑</item>
+    </string-array>
+
 </resources>

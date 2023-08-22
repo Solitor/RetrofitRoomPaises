@@ -23,4 +23,16 @@ class DataIdHandler(
             })
         }
     }
+
+    fun findPaisByIdDesc(busca: String) {
+        if (busca.isEmpty()) {
+            paisViewModel.getAllPaisesByIdDesc().observe(viewLifecycleOwner, Observer { paisList ->
+                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            })
+        } else {
+            paisViewModel.findByIdDesc(busca).observe(viewLifecycleOwner, Observer { paisList ->
+                adapter.updateData(paisList)
+            })
+        }
+    }
 }
