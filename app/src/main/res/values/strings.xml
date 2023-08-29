@@ -3,9 +3,12 @@
     <string name="app_name">Retrofit Room Paises</string>
 
     <string-array name="filter_options">
-        <item>Região</item>
-        <item>Região Intermediaria</item>
-        <item>Sub-Região</item>
+        <item>Região (ascendentes) ↓</item>
+        <item>Região (descendentes) ↑</item>
+        <item>Região Intermediaria (ascendentes) ↓</item>
+        <item>Região Intermediaria (descendentes) ↑</item>
+        <item>Sub-Região (ascendentes) ↓</item>
+        <item>Sub-Região (descendentes) ↑</item>
     </string-array>
 
     <string-array name="id_options">

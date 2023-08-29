@@ -44,6 +44,34 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAll()
     }
 
+    fun getAllPaisesDesc(): LiveData<List<Pais>> {
+        return repository.getAllDesc()
+    }
+
+    fun getAllPaisesByRegiao(): LiveData<List<Pais>> {
+        return repository.getAllByRegiao()
+    }
+
+    fun getAllPaisesByRegiaoDesc(): LiveData<List<Pais>> {
+        return repository.getAllByRegiaoDesc()
+    }
+
+    fun getAllPaisesByRegiaoIntermediaria(): LiveData<List<Pais>> {
+        return repository.getAllByRegiaoIntermediaria()
+    }
+
+    fun getAllPaisesByRegiaoIntermediariaDesc(): LiveData<List<Pais>> {
+        return repository.getAllByRegiaoIntermediariaDesc()
+    }
+
+    fun getAllPaisesBySubRegiao(): LiveData<List<Pais>> {
+        return repository.getAllBySubRegiao()
+    }
+
+    fun getAllPaisesBySubRegiaoDesc(): LiveData<List<Pais>> {
+        return repository.getAllBySubRegiaoDesc()
+    }
+
     fun getAllPaisesById(): LiveData<List<Pais>> {
         return repository.getAllById()
     }
@@ -67,13 +95,22 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
     fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
         return repository.findByRegiao(searchTarget)
     }
+    fun findByRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findByRegiaoDesc(searchTarget)
+    }
 
     fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
         return repository.findByRegiaoIntermediaria(searchTarget)
     }
+    fun findByRegiaoIntermediariaDesc(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findByRegiaoIntermediariaDesc(searchTarget)
+    }
 
     fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
         return repository.findBySubRegiao(searchTarget)
+    }
+    fun findBySubRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
+        return repository.findBySubRegiaoDesc(searchTarget)
     }
 
     fun delete(pais: Pais): Boolean = runBlocking {

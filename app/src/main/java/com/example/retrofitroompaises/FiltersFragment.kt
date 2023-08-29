@@ -103,10 +103,19 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
                 dataHandler.findPaisByRegiao(searchQuery)
             }
             1 -> {
-                dataHandler.findPaisByRegiaoIntermediaria(searchQuery)
+                dataHandler.findPaisByRegiaoDesc(searchQuery)
             }
             2 -> {
+                dataHandler.findPaisByRegiaoIntermediaria(searchQuery)
+            }
+            3 -> {
+                dataHandler.findPaisByRegiaoIntermediariaDesc(searchQuery)
+            }
+            4 -> {
                 dataHandler.findPaisBySubRegiao(searchQuery)
+            }
+            5 -> {
+                dataHandler.findPaisBySubRegiaoDesc(searchQuery)
             }
         }
     }

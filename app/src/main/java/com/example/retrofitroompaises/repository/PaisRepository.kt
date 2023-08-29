@@ -29,6 +29,30 @@ class PaisRepository(private val paisDao: PaisDao) {
     fun getAll(): LiveData<List<Pais>>{
         return paisDao.getAll()
     }
+    fun getAllDesc(): LiveData<List<Pais>>{
+        return paisDao.getAllDesc()
+    }
+
+    fun getAllByRegiao(): LiveData<List<Pais>>{
+        return paisDao.getAllByRegiao()
+    }
+    fun getAllByRegiaoDesc(): LiveData<List<Pais>>{
+        return paisDao.getAllByRegiaoDesc()
+    }
+
+    fun getAllByRegiaoIntermediaria(): LiveData<List<Pais>>{
+        return paisDao.getAllByRegiaoIntermediaria()
+    }
+    fun getAllByRegiaoIntermediariaDesc(): LiveData<List<Pais>>{
+        return paisDao.getAllByRegiaoIntermediariaDesc()
+    }
+
+    fun getAllBySubRegiao(): LiveData<List<Pais>>{
+        return paisDao.getAllBySubRegiao()
+    }
+    fun getAllBySubRegiaoDesc(): LiveData<List<Pais>>{
+        return paisDao.getAllBySubRegiaoDesc()
+    }
 
     fun getAllById(): LiveData<List<Pais>>{
         return paisDao.getAllById()
@@ -82,12 +106,21 @@ class PaisRepository(private val paisDao: PaisDao) {
     fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findByRegiao(searchTarget)
     }
+    fun findByRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findByRegiaoDesc(searchTarget)
+    }
 
     fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findByRegiaoIntermediaria(searchTarget)
     }
+    fun findByRegiaoIntermediariaDesc(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findByRegiaoIntermediariaDesc(searchTarget)
+    }
 
     fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
         return paisDao.findBySubRegiao(searchTarget)
+    }
+    fun findBySubRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
+        return paisDao.findBySubRegiaoDesc(searchTarget)
     }
 }
