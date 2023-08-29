@@ -49,28 +49,23 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
         Log.d("LOOKOUT_UAV2", "onBindViewHolder")
         Log.d("LOOKOUT_UAV2", "POSITION: ${position}")
 
-        val currentItem = showingList[position]
-        val auxId = "Id: " + currentItem.id.toString()
-        val auxNome = "Nome:\n\t\t=> " + currentItem.nome.toString()
-        val auxRegiao = "Região:\n\t\t=> " + currentItem.regiao.toString()
-        val auxRegiaoIntermediaria = if(currentItem.regiaoIntermediaria.toString().isNullOrBlank()){
-            "Região Intermediaria:\n\t\t=> -não informada-"
-        }else{
-            "Região Intermediaria:\n\t\t=> " + currentItem.regiaoIntermediaria.toString()
-        }
-        val auxSubRegiao = if(currentItem.subRegiao.toString().isNullOrBlank()){
-            "Sub-Região:\n\t\t=> -não informada-"
-        }else{
-            "Sub-Região:\n\t\t=> " + currentItem.subRegiao.toString()
-        }
-        val auxPagina = "País " + position.plus(1).toString() + " de " + showingList.size.toString()
-
-        holder.idVH.text = auxId
-        holder.nomeVH.text = auxNome
-        holder.regiaoVH.text = auxRegiao
-        holder.regiaoIntermediariaVH.text = auxRegiaoIntermediaria
-        holder.subRegiaoVH.text = auxSubRegiao
-        holder.pagnumeroVH.text = auxPagina
+        holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
+        holder.nomeVH.text = "Nome:\n\t\t=> " + showingList[position].nome.toString()
+        holder.regiaoVH.text = "Região:\n\t\t=> " + showingList[position].regiao.toString()
+        holder.regiaoIntermediariaVH.text =
+            if (showingList[position].regiaoIntermediaria.toString().isNullOrBlank()) {
+                "Região Intermediaria:\n\t\t=> -não informada-"
+            } else {
+                "Região Intermediaria:\n\t\t=> " + showingList[position].regiaoIntermediaria.toString()
+            }
+        holder.subRegiaoVH.text =
+            if (showingList[position].subRegiao.toString().isNullOrBlank()) {
+                "Sub-Região:\n\t\t=> -não informada-"
+            } else {
+                "Sub-Região:\n\t\t=> " + showingList[position].subRegiao.toString()
+            }
+        holder.pagnumeroVH.text =
+            "País " + position.plus(1).toString() + " de " + showingList.size.toString()
 
         if (booleanMutableList[position]) {
             holder.nomeVH.visibility = View.VISIBLE
@@ -78,13 +73,17 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
             holder.subRegiaoVH.visibility = View.VISIBLE
             holder.regiaoVH.visibility = View.VISIBLE
             holder.buttonsLayout.visibility = View.VISIBLE
+            holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
         } else {
             holder.nomeVH.visibility = View.GONE
             holder.regiaoIntermediariaVH.visibility = View.GONE
             holder.subRegiaoVH.visibility = View.GONE
             holder.regiaoVH.visibility = View.GONE
             holder.buttonsLayout.visibility = View.GONE
+            holder.idVH.text = "[" + showingList[position].id.toString() + "] " + showingList[position].nome.toString()
         }
+
+
         holder.idVH.setOnClickListener {
             if (booleanMutableList[position]) {
                 holder.nomeVH.visibility = View.GONE
@@ -92,6 +91,7 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
                 holder.subRegiaoVH.visibility = View.GONE
                 holder.regiaoVH.visibility = View.GONE
                 holder.buttonsLayout.visibility = View.GONE
+                holder.idVH.text = "[" + showingList[position].id.toString() + "] " + showingList[position].nome.toString()
                 booleanMutableList[position] = false
             } else {
                 holder.nomeVH.visibility = View.VISIBLE
@@ -99,14 +99,15 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
                 holder.subRegiaoVH.visibility = View.VISIBLE
                 holder.regiaoVH.visibility = View.VISIBLE
                 holder.buttonsLayout.visibility = View.VISIBLE
+                holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
                 booleanMutableList[position] = true
             }
         }
         holder.buttonEditVH.setOnClickListener{
-            buttonEditAlertDialog(currentItem)
+            buttonEditAlertDialog(showingList[position])
         }
         holder.buttonDeleteVH.setOnClickListener{
-            buttonDeleteAlertDialog(currentItem)
+            buttonDeleteAlertDialog(showingList[position])
         }
     }
 
