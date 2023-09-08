@@ -7,80 +7,80 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.retrofitroompaises.model.Pais
+import com.example.retrofitroompaises.model.Country
 
 @Dao
 interface PaisDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(pais: Pais)
+    fun insert(country: Country)
 
-    @Query("SELECT * FROM pais_table ORDER BY nome COLLATE NOCASE ASC")
-    fun getAll(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY name COLLATE NOCASE ASC")
+    fun getAll(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY nome COLLATE NOCASE DESC")
-    fun getAllDesc(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY name COLLATE NOCASE DESC")
+    fun getAllDesc(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY id COLLATE NOCASE ASC")
-    fun getAllById(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY id COLLATE NOCASE ASC")
+    fun getAllById(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY id COLLATE NOCASE DESC")
-    fun getAllByIdDesc(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY id COLLATE NOCASE DESC")
+    fun getAllByIdDesc(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY regiao COLLATE NOCASE ASC, nome COLLATE NOCASE ASC")
-    fun getAllByRegiao(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY region COLLATE NOCASE ASC, name COLLATE NOCASE ASC")
+    fun getAllByRegion(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY regiao COLLATE NOCASE DESC, nome COLLATE NOCASE ASC")
-    fun getAllByRegiaoDesc(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY region COLLATE NOCASE DESC, name COLLATE NOCASE ASC")
+    fun getAllByRegionDesc(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY regiaoIntermediaria COLLATE NOCASE ASC, nome COLLATE NOCASE ASC")
-    fun getAllByRegiaoIntermediaria(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY continent COLLATE NOCASE ASC, name COLLATE NOCASE ASC")
+    fun getAllByContinent(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY regiaoIntermediaria COLLATE NOCASE DESC, nome COLLATE NOCASE ASC")
-    fun getAllByRegiaoIntermediariaDesc(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY continent COLLATE NOCASE DESC, name COLLATE NOCASE ASC")
+    fun getAllByContinentDesc(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY subRegiao COLLATE NOCASE ASC, nome COLLATE NOCASE ASC")
-    fun getAllBySubRegiao(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY subregion COLLATE NOCASE ASC, name COLLATE NOCASE ASC")
+    fun getAllBySubRegion(): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table ORDER BY subRegiao COLLATE NOCASE DESC, nome COLLATE NOCASE ASC")
-    fun getAllBySubRegiaoDesc(): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table ORDER BY subregion COLLATE NOCASE DESC, name COLLATE NOCASE ASC")
+    fun getAllBySubRegionDesc(): LiveData<List<Country>>
 
-    @Query("DELETE FROM pais_table")
+    @Query("DELETE FROM country_table")
     fun deleteAll()
 
     @Delete
-    fun delete(pais: Pais)
+    fun delete(country: Country)
 
     @Update
-    fun update(pais: Pais)
+    fun update(country: Country)
 
-    @Query("DELETE FROM pais_table WHERE id = :id")
+    @Query("DELETE FROM country_table WHERE id = :id")
     fun deleteById(id: Int)
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(nome) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
-    fun findByNome(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(name) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE ASC")
+    fun findByName(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(id) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY id COLLATE NOCASE ASC")
-    fun findById(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(id) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY id COLLATE NOCASE ASC")
+    fun findById(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(id) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY id COLLATE NOCASE DESC")
-    fun findByIdDesc(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(id) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY id COLLATE NOCASE DESC")
+    fun findByIdDesc(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(regiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
-    fun findByRegiao(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(region) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE ASC")
+    fun findByRegion(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(regiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE DESC")
-    fun findByRegiaoDesc(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(region) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE DESC")
+    fun findByRegionDesc(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(regiaoIntermediaria) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
-    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(continent) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE ASC")
+    fun findByContinent(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(regiaoIntermediaria) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE DESC")
-    fun findByRegiaoIntermediariaDesc(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(continent) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE DESC")
+    fun findByContinentDesc(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(subRegiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE ASC")
-    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(subregion) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE ASC")
+    fun findBySubRegion(searchTarget: String): LiveData<List<Country>>
 
-    @Query("SELECT * FROM pais_table WHERE LOWER(subRegiao) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY nome COLLATE NOCASE DESC")
-    fun findBySubRegiaoDesc(searchTarget: String): LiveData<List<Pais>>
+    @Query("SELECT * FROM country_table WHERE LOWER(subregion) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE DESC")
+    fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>>
 }

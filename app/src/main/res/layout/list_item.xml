@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
@@ -25,62 +24,111 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/nome_tv"
+                android:id="@+id/paisAdapter_NameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="5dp"
-                android:text="paisNome"
+                android:text="Name"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="32dp" />
 
             <LinearLayout
-                android:id="@+id/colapsableLayout"
+                android:id="@+id/paisAdapter_ColapsableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/regiao_tv"
+                    android:id="@+id/paisAdapter_OfficialTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="paisRegiao"
+                    android:text="Official"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/paisAdapter_AcronymTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Acronym"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/paisAdapter_CapitalTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Capital"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/paisAdapter_RegionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Region"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/white"
                     android:textSize="24dp" />
 
 
                 <TextView
-                    android:id="@+id/regiaoIntermediaria_tv"
+                    android:id="@+id/paisAdapter_SubRegionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="paisRegiaoIntermediaria"
+                    android:text="SubRegion"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/white"
                     android:textSize="24dp" />
 
-
                 <TextView
-                    android:id="@+id/subRegiao_tv"
+                    android:id="@+id/paisAdapter_AreaTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="paisSubRegiao"
+                    android:text="Area"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/paisAdapter_PopulationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Population"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/paisAdapter_ContinentTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Continent"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/white"
                     android:textSize="24dp" />
 
                 <LinearLayout
-                    android:id="@+id/buttonsLinearLayout"
+                    android:id="@+id/paisAdapter_ButtonsLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/listItemEdit"
+                        android:id="@+id/paisAdapter_EditButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
@@ -95,7 +143,7 @@
                         android:textSize="30dp" />
 
                     <Button
-                        android:id="@+id/listItemDelete"
+                        android:id="@+id/paisAdapter_DeleteButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -107,13 +155,13 @@
                         android:text="Delete"
                         android:textAllCaps="false"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                        android:textColor="#222"
+                        android:textColor="#ddd"
                         android:textSize="30dp" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/pagina_tv"
+                    android:id="@+id/paisAdapter_PaginaTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"

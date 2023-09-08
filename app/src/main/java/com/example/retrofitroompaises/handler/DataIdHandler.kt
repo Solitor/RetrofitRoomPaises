@@ -12,26 +12,26 @@ class DataIdHandler(
     private val viewLifecycleOwner: LifecycleOwner
 ) {
 
-    fun findPaisById(busca: String) {
+    fun findCountryById(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesById().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesById().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findById(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findById(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
 
-    fun findPaisByIdDesc(busca: String) {
+    fun findCountryByIdDesc(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesByIdDesc().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesByIdDesc().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findByIdDesc(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByIdDesc(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }

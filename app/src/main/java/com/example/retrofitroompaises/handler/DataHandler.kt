@@ -11,85 +11,85 @@ class DataHandler(
     private val viewLifecycleOwner: LifecycleOwner
 ) {
 
-    fun findPaisByNome(busca: String) {
+    fun findCountryByName(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaises().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountries().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findByNome(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByName(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
 
-    fun findPaisByRegiao(busca: String) {
+    fun findCountryByRegion(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesByRegiao().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesByRegion().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findByRegiao(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByRegion(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
-    fun findPaisByRegiaoDesc(busca: String) {
+    fun findCountryByRegionDesc(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesByRegiaoDesc().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesByRegionDesc().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findByRegiaoDesc(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
-            })
-        }
-    }
-
-    fun findPaisByRegiaoIntermediaria(busca: String) {
-        if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesByRegiaoIntermediaria().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
-            })
-        } else {
-            paisViewModel.findByRegiaoIntermediaria(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByRegionDesc(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
 
-    fun findPaisByRegiaoIntermediariaDesc(busca: String) {
+    fun findCountryByContinent(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesByRegiaoIntermediariaDesc().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesByContinent().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findByRegiaoIntermediariaDesc(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByContinent(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
 
-    fun findPaisBySubRegiao(busca: String) {
+    fun findCountryByContinentDesc(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesBySubRegiao().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesByContinentDesc().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findBySubRegiao(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findByContinentDesc(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }
 
-    fun findPaisBySubRegiaoDesc(busca: String) {
+    fun findCountryBySubRegion(busca: String) {
         if (busca.isEmpty()) {
-            paisViewModel.getAllPaisesBySubRegiaoDesc().observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList) // Update the adapter's data when the list changes
+            paisViewModel.getAllCountriesBySubRegion().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
             })
         } else {
-            paisViewModel.findBySubRegiaoDesc(busca).observe(viewLifecycleOwner, Observer { paisList ->
-                adapter.updateData(paisList)
+            paisViewModel.findBySubRegion(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
+            })
+        }
+    }
+
+    fun findCountryBySubRegionDesc(busca: String) {
+        if (busca.isEmpty()) {
+            paisViewModel.getAllCountriesBySubRegionDesc().observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList) // Update the adapter's data when the list changes
+            })
+        } else {
+            paisViewModel.findBySubRegionDesc(busca).observe(viewLifecycleOwner, Observer { countryList ->
+                adapter.updateData(countryList)
             })
         }
     }

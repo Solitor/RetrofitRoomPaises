@@ -46,7 +46,6 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         paisIdAdapter = PaisIdAdapter(
             requireContext(),
-            emptyList(),
             paisViewModel
         )
         recyclerView.adapter = paisIdAdapter
@@ -55,7 +54,7 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
         alertDialogIdHandler =
             AlertDialogIdHandler(requireContext(), paisViewModel, dataIdHandler, jsonHandler)
 
-        dataIdHandler.findPaisById(searchQuery)
+        dataIdHandler.findCountryById(searchQuery)
 
         spinnerFilter = view.findViewById(R.id.fragmentId_SpinnerFilter)
 
@@ -99,10 +98,10 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private fun filterData(searchQuery: String, filterOption: Int) {
         when (filterOption) {
             0 -> {
-                dataIdHandler.findPaisById(searchQuery)
+                dataIdHandler.findCountryById(searchQuery)
             }
             1 -> {
-                dataIdHandler.findPaisByIdDesc(searchQuery)
+                dataIdHandler.findCountryByIdDesc(searchQuery)
             }
         }
     }

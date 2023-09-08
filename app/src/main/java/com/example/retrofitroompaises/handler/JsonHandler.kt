@@ -3,6 +3,7 @@ package com.example.retrofitroompaises.handler
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.retrofitroompaises.data.ApiService
+import com.example.retrofitroompaises.model.Country
 import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,16 +23,20 @@ class JsonHandler(
     private fun insertAllPaisJSONs() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.getPaisesJSON()
+                val response = apiService.getCountryJSON()
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     responseBody?.forEach {
-                        val entity = Pais(
-                            id = it.id.m49,
-                            nome = it.nome,
-                            regiaoIntermediaria = it.regiaoIntermediaria?.nome ?: "",
-                            subRegiao = it.subRegiao.nome,
-                            regiao = it.subRegiao.regiao.nome
+                        val entity = Country(
+                            name =  it.name.common,
+                            official = it.name.official,
+                            acronym = it.cca3,
+                            capital = it.capital?.firstOrNull(),
+                            region = it.region,
+                            subregion = it.subregion,
+                            area = it.area,
+                            population = it.population,
+                            continent = it.continents.firstOrNull()
                         )
                         paisViewModel.insert(entity)
                     }

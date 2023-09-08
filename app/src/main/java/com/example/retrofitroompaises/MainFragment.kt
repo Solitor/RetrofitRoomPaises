@@ -45,7 +45,6 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         paisAdapter = PaisAdapter(
             requireContext(),
-            emptyList(),
             paisViewModel
         )
         recyclerView.adapter = paisAdapter
@@ -55,7 +54,7 @@ class MainFragment : Fragment() {
             AlertDialogHandler(requireContext(), paisViewModel, dataHandler, jsonHandler)
 
         Log.d("LOOKOUT_UAV2", "findPaisByNome call inicial")
-        dataHandler.findPaisByNome(searchQuery)
+        dataHandler.findCountryByName(searchQuery)
 
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -65,7 +64,7 @@ class MainFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 searchQuery = s.toString().trim()
                 Log.d("LOOKOUT_UAV2", "findPaisByNome call searchEditText")
-                dataHandler.findPaisByNome(searchQuery)
+                dataHandler.findCountryByName(searchQuery)
             }
         })
         menuHandler = MenuHandler(view)

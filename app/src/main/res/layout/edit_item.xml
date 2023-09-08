@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
@@ -10,7 +9,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/editItemTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -23,50 +21,105 @@
         android:textSize="32dp" />
 
     <EditText
-        android:id="@+id/editItemNome"
+        android:id="@+id/editItem_NameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:hint="Nome"
-        android:padding="10dp"
-        android:textColor="#eeeeee"
-        android:textColorHint="#393E46"
-        android:textSize="24dp" />
-
-
-    <EditText
-        android:id="@+id/editItemRegiao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:hint="Regiao"
+        android:hint="Name"
         android:padding="10dp"
         android:textColor="#eeeeee"
         android:textColorHint="#393E46"
         android:textSize="24dp" />
 
     <EditText
-        android:id="@+id/editItemRegiaoIntermediaria"
+        android:id="@+id/editItem_OfficialEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:hint="Regiao Intermediaria"
+        android:hint="Official"
         android:padding="10dp"
         android:textColor="#eeeeee"
         android:textColorHint="#393E46"
         android:textSize="24dp" />
 
     <EditText
-        android:id="@+id/editItemSubRegiao"
+        android:id="@+id/editItem_AcronymEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:hint="Sub-Regiao"
+        android:hint="Acronym"
         android:padding="10dp"
         android:textColor="#eeeeee"
         android:textColorHint="#393E46"
         android:textSize="24dp" />
 
+    <EditText
+        android:id="@+id/editItem_CapitalEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Capital"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editItem_RegionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Region"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editItem_SubRegionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Sub-Region"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editItem_AreaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Area"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editItem_PopulationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Population"
+        android:inputType="number"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editItem_ContinentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Continent"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHint="#393E46"
+        android:textSize="24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +129,7 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/editItemCancel"
+            android:id="@+id/editItem_CancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -89,7 +142,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/editItemButton"
+            android:id="@+id/editItem_EditButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

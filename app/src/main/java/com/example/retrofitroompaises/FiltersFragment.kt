@@ -46,7 +46,6 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         paisAdapter = PaisAdapter(
             requireContext(),
-            emptyList(),
             paisViewModel
         )
         recyclerView.adapter = paisAdapter
@@ -55,7 +54,7 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
         alertDialogHandler =
             AlertDialogHandler(requireContext(), paisViewModel, dataHandler, jsonHandler)
 
-        dataHandler.findPaisByNome(searchQuery)
+        dataHandler.findCountryByName(searchQuery)
 
         spinnerFilter = view.findViewById(R.id.fragmentFilter_SpinnerFilter)
 
@@ -100,22 +99,22 @@ class FiltersFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private fun filterData(searchQuery: String, filterOption: Int) {
         when (filterOption) {
             0 -> {
-                dataHandler.findPaisByRegiao(searchQuery)
+                dataHandler.findCountryByRegion(searchQuery)
             }
             1 -> {
-                dataHandler.findPaisByRegiaoDesc(searchQuery)
+                dataHandler.findCountryByRegionDesc(searchQuery)
             }
             2 -> {
-                dataHandler.findPaisByRegiaoIntermediaria(searchQuery)
+                dataHandler.findCountryBySubRegion(searchQuery)
             }
             3 -> {
-                dataHandler.findPaisByRegiaoIntermediariaDesc(searchQuery)
+                dataHandler.findCountryBySubRegionDesc(searchQuery)
             }
             4 -> {
-                dataHandler.findPaisBySubRegiao(searchQuery)
+                dataHandler.findCountryByContinent(searchQuery)
             }
             5 -> {
-                dataHandler.findPaisBySubRegiaoDesc(searchQuery)
+                dataHandler.findCountryByContinentDesc(searchQuery)
             }
         }
     }

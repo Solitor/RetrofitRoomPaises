@@ -8,75 +8,82 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.retrofitroompaises.R
+import com.example.retrofitroompaises.model.Country
 import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 
 class AlertDialogIdHandler(
-    private val context: Context,
+    private val con: Context,
     private val paisViewModel: PaisViewModel,
     private val dataIdHandler: DataIdHandler,
     private val jsonHandler: JsonHandler
 ) {
     fun showAddAlertDialog() {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.add_id_item, null)
-        val addItemId = dialogView.findViewById<EditText>(R.id.addIdItemId)
-        val addItemNome = dialogView.findViewById<EditText>(R.id.addIdItemNome)
-        val addItemRegiao = dialogView.findViewById<EditText>(R.id.addIdItemRegiao)
-        val addItemRegiaoIntermediaria =
-            dialogView.findViewById<EditText>(R.id.addIdItemRegiaoIntermediaria)
-        val addItemSubRegiao = dialogView.findViewById<EditText>(R.id.addIdItemSubRegiao)
-        val addItemCancel: Button = dialogView.findViewById(R.id.addIdItemCancel)
-        val addItemButton: Button = dialogView.findViewById(R.id.addIdItemButton)
+        val dialogView = LayoutInflater.from(con).inflate(R.layout.add_id_item, null)
+        val idET = dialogView.findViewById<EditText>(R.id.addIdItem_IdEditText)
+        val nameET = dialogView.findViewById<EditText>(R.id.addIdItem_NameEditText)
+        val officialET = dialogView.findViewById<EditText>(R.id.addIdItem_OfficialEditText)
+        val acronymET = dialogView.findViewById<EditText>(R.id.addIdItem_AcronymEditText)
+        val capitalET = dialogView.findViewById<EditText>(R.id.addIdItem_CapitalEditText)
+        val regionET = dialogView.findViewById<EditText>(R.id.addIdItem_RegionEditText)
+        val subregionET = dialogView.findViewById<EditText>(R.id.addIdItem_SubRegionEditText)
+        val areaET = dialogView.findViewById<EditText>(R.id.addIdItem_AreaEditText)
+        val populationET = dialogView.findViewById<EditText>(R.id.addIdItem_PopulationEditText)
+        val continentET = dialogView.findViewById<EditText>(R.id.addIdItem_ContinentEditText)
+        val insertButton = dialogView.findViewById<Button>(R.id.addIdItem_InsertButton)
+        val cancelButton = dialogView.findViewById<Button>(R.id.addIdItem_CancelButton)
 
-        val builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(con)
         builder.setView(dialogView)
 
         val dialog = builder.create()
 
-        addItemCancel.setOnClickListener {
+        cancelButton.setOnClickListener {
             dialog.dismiss()
         }
-        addItemButton.setOnClickListener {
-            val itemId = addItemId.text.toString().trim()
-            val itemName = addItemNome.text.toString().trim()
-            val itemRegiao = addItemRegiao.text.toString().trim()
-            val itemRegiaoIntermediaria = addItemRegiaoIntermediaria.text.toString().trim()
-            val itemSubRegiao = addItemSubRegiao.text.toString().trim()
-
-            if(itemId.isEmpty()){
-                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                    val entity = Pais(
-                        nome = itemName,
-                        regiao = itemRegiao,
-                        regiaoIntermediaria = itemRegiaoIntermediaria,
-                        subRegiao = itemSubRegiao
+        insertButton.setOnClickListener {
+            if(idET.text.toString().isEmpty()){ // Id não especificado
+                if (nameET.text.isBlank()) {
+                    Toast.makeText(con, "Nome não pode estar vazio.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val entity = Country(
+                        name = nameET.text.toString().trim(),
+                        official = officialET.text.toString().trim(),
+                        acronym = acronymET.text.toString().trim(),
+                        capital = capitalET.text.toString().trim(),
+                        region = regionET.text.toString().trim(),
+                        subregion = subregionET.text.toString().trim(),
+                        area = areaET.text.toString().toDoubleOrNull(),
+                        population = populationET.text.toString().toIntOrNull(),
+                        continent = continentET.text.toString().trim()
                     )
                     paisViewModel.insert(entity)
-                    Toast.makeText(context, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(con, "País adicionado: ${entity.name}", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
-                } else {
-                    Toast.makeText(context, "Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT)
-                        .show()
                 }
-            } else {
-                if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                    val entity = Pais(
-                        id = itemId.toInt(),
-                        nome = itemName,
-                        regiao = itemRegiao,
-                        regiaoIntermediaria = itemRegiaoIntermediaria,
-                        subRegiao = itemSubRegiao
+            } else { // Id especificado
+                if (nameET.text.isBlank()) {
+                    Toast.makeText(con, "Nome não pode estar vazio.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val entity = Country(
+                        id = idET.text.toString().trim().toInt(),
+                        name = nameET.text.toString().trim(),
+                        official = officialET.text.toString().trim(),
+                        acronym = acronymET.text.toString().trim(),
+                        capital = capitalET.text.toString().trim(),
+                        region = regionET.text.toString().trim(),
+                        subregion = subregionET.text.toString().trim(),
+                        area = areaET.text.toString().toDoubleOrNull(),
+                        population = populationET.text.toString().toIntOrNull(),
+                        continent = continentET.text.toString().trim()
                     )
                     if(paisViewModel.insert(entity)){
-                        Toast.makeText(context, "País adicionado: $itemName", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(con, "País adicionado: ${entity.id}", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     } else {
-                        Toast.makeText(context, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
+                        Toast.makeText(con, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
                             .show()
                     }
-                } else {
-                    Toast.makeText(context, "Nome e Região não podem estar vazios.", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }
         }
@@ -84,14 +91,14 @@ class AlertDialogIdHandler(
     }
 
     fun showDeleteAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(context)
+        val alertDialogBuilder = AlertDialog.Builder(con)
         alertDialogBuilder.setTitle("Delete Operation")
         alertDialogBuilder.setMessage("Esta operação deletará todos os itens da database, tem certeza que deseja prosseguir ?")
         alertDialogBuilder.setPositiveButton("Sim, deletar conteúdo.") { dialog: DialogInterface, _: Int ->
-            paisViewModel.deleteAllPaises()
-            dataIdHandler.findPaisById("")
+            paisViewModel.deleteAllCountries()
+            dataIdHandler.findCountryById("")
             dialog.dismiss()
-            Toast.makeText(context, "Países deletados", Toast.LENGTH_SHORT).show()
+            Toast.makeText(con, "Países deletados", Toast.LENGTH_SHORT).show()
         }
         alertDialogBuilder.setNegativeButton("Não, abortar.") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
@@ -101,14 +108,14 @@ class AlertDialogIdHandler(
     }
 
     fun showResetAlertDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(context)
+        val alertDialogBuilder = AlertDialog.Builder(con)
         alertDialogBuilder.setTitle("Reset Operation")
         alertDialogBuilder.setMessage("Esta operação irá reinserir todos os paises da Json-Api na database, tem certeza que deseja prosseguir ?")
         alertDialogBuilder.setPositiveButton("Sim, reinserir conteúdo.") { dialog: DialogInterface, _: Int ->
             jsonHandler.resetJsonOperation()
-            dataIdHandler.findPaisById("")
+            dataIdHandler.findCountryById("")
             dialog.dismiss()
-            Toast.makeText(context, "Países reinseridos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(con, "Países reinseridos", Toast.LENGTH_SHORT).show()
         }
         alertDialogBuilder.setNegativeButton("Não, abortar.") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()

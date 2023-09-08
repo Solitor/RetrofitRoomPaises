@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://servicodados.ibge.gov.br/api/v1/localidades/paises/" // Replace with your API base URL
+    private const val BASE_URL = "https://restcountries.com/"
 
     private val gson: Gson = GsonBuilder()
         .setLenient()

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.retrofitroompaises.data.AppDatabase
+import com.example.retrofitroompaises.model.Country
 import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.repository.PaisRepository
 import kotlinx.coroutines.CompletableDeferred
@@ -15,7 +16,7 @@ import kotlinx.coroutines.runBlocking
 class PaisViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository: PaisRepository
-    private val allPais: LiveData<List<Pais>>
+    private val allPais: LiveData<List<Country>>
 
     init {
         val dao = AppDatabase.getDatabase(application).paisDao()
@@ -23,100 +24,100 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         allPais = repository.allPais
     }
 
-    fun insert(pais: Pais): Boolean = runBlocking {
+    fun insert(country: Country): Boolean = runBlocking {
         val result = CompletableDeferred<Boolean>()
         viewModelScope.launch(Dispatchers.IO) {
-            val isSuccess = repository.insert(pais)
+            val isSuccess = repository.insert(country)
             result.complete(isSuccess)
         }
         result.await()
     }
 
-    fun update(pais:Pais) = viewModelScope.launch(Dispatchers.IO) {
-        repository.update(pais)
+    fun update(country:Country) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(country)
     }
 
-    fun deleteAllPaises() = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteAllCountries() = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }
 
-    fun getAllPaises(): LiveData<List<Pais>> {
+    fun getAllCountries(): LiveData<List<Country>> {
         return repository.getAll()
     }
 
-    fun getAllPaisesDesc(): LiveData<List<Pais>> {
+    fun getAllCountriesDesc(): LiveData<List<Country>> {
         return repository.getAllDesc()
     }
 
-    fun getAllPaisesByRegiao(): LiveData<List<Pais>> {
-        return repository.getAllByRegiao()
+    fun getAllCountriesByRegion(): LiveData<List<Country>> {
+        return repository.getAllByRegion()
     }
 
-    fun getAllPaisesByRegiaoDesc(): LiveData<List<Pais>> {
-        return repository.getAllByRegiaoDesc()
+    fun getAllCountriesByRegionDesc(): LiveData<List<Country>> {
+        return repository.getAllByRegionDesc()
     }
 
-    fun getAllPaisesByRegiaoIntermediaria(): LiveData<List<Pais>> {
-        return repository.getAllByRegiaoIntermediaria()
+    fun getAllCountriesByContinent(): LiveData<List<Country>> {
+        return repository.getAllByContinent()
     }
 
-    fun getAllPaisesByRegiaoIntermediariaDesc(): LiveData<List<Pais>> {
-        return repository.getAllByRegiaoIntermediariaDesc()
+    fun getAllCountriesByContinentDesc(): LiveData<List<Country>> {
+        return repository.getAllByContinentDesc()
     }
 
-    fun getAllPaisesBySubRegiao(): LiveData<List<Pais>> {
-        return repository.getAllBySubRegiao()
+    fun getAllCountriesBySubRegion(): LiveData<List<Country>> {
+        return repository.getAllBySubRegion()
     }
 
-    fun getAllPaisesBySubRegiaoDesc(): LiveData<List<Pais>> {
-        return repository.getAllBySubRegiaoDesc()
+    fun getAllCountriesBySubRegionDesc(): LiveData<List<Country>> {
+        return repository.getAllBySubRegionDesc()
     }
 
-    fun getAllPaisesById(): LiveData<List<Pais>> {
+    fun getAllCountriesById(): LiveData<List<Country>> {
         return repository.getAllById()
     }
 
-    fun getAllPaisesByIdDesc(): LiveData<List<Pais>> {
+    fun getAllCountriesByIdDesc(): LiveData<List<Country>> {
         return repository.getAllByIdDesc()
     }
 
-    fun findByNome(searchTarget: String): LiveData<List<Pais>>{
-        return repository.findByNome(searchTarget)
+    fun findByName(searchTarget: String): LiveData<List<Country>>{
+        return repository.findByName(searchTarget)
     }
 
-    fun findById(searchTarget: String): LiveData<List<Pais>>{
+    fun findById(searchTarget: String): LiveData<List<Country>>{
         return repository.findById(searchTarget)
     }
 
-    fun findByIdDesc(searchTarget: String): LiveData<List<Pais>>{
+    fun findByIdDesc(searchTarget: String): LiveData<List<Country>>{
         return repository.findByIdDesc(searchTarget)
     }
 
-    fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findByRegiao(searchTarget)
+    fun findByRegion(searchTarget: String): LiveData<List<Country>> {
+        return repository.findByRegion(searchTarget)
     }
-    fun findByRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findByRegiaoDesc(searchTarget)
-    }
-
-    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findByRegiaoIntermediaria(searchTarget)
-    }
-    fun findByRegiaoIntermediariaDesc(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findByRegiaoIntermediariaDesc(searchTarget)
+    fun findByRegionDesc(searchTarget: String): LiveData<List<Country>> {
+        return repository.findByRegionDesc(searchTarget)
     }
 
-    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findBySubRegiao(searchTarget)
+    fun findByContinent(searchTarget: String): LiveData<List<Country>> {
+        return repository.findByContinent(searchTarget)
     }
-    fun findBySubRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
-        return repository.findBySubRegiaoDesc(searchTarget)
+    fun findByContinentDesc(searchTarget: String): LiveData<List<Country>> {
+        return repository.findByContinentDesc(searchTarget)
     }
 
-    fun delete(pais: Pais): Boolean = runBlocking {
+    fun findBySubRegion(searchTarget: String): LiveData<List<Country>> {
+        return repository.findBySubRegion(searchTarget)
+    }
+    fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>> {
+        return repository.findBySubRegionDesc(searchTarget)
+    }
+
+    fun delete(country: Country): Boolean = runBlocking {
         val result = CompletableDeferred<Boolean>()
         viewModelScope.launch(Dispatchers.IO) {
-            val isSuccess = repository.delete(pais)
+            val isSuccess = repository.delete(country)
             result.complete(isSuccess)
         }
         result.await()

@@ -14,24 +14,30 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitroompaises.R
+import com.example.retrofitroompaises.model.Country
 import com.example.retrofitroompaises.model.Pais
 
-class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewModel: PaisViewModel) :
+class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
     RecyclerView.Adapter<PaisIdAdapter.ViewHolder>() {
 
-    var showingList = paisList
+    var showingList: List<Country> = emptyList()
     val booleanMutableList: MutableList<Boolean> = MutableList(showingList.size) { false }
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var idVH                    = v.findViewById<TextView>(R.id.id_id_tv)
-        var nomeVH                  = v.findViewById<TextView>(R.id.id_nome_tv)
-        var regiaoIntermediariaVH   = v.findViewById<TextView>(R.id.id_regiaoIntermediaria_tv)
-        var subRegiaoVH             = v.findViewById<TextView>(R.id.id_subRegiao_tv)
-        var regiaoVH                = v.findViewById<TextView>(R.id.id_regiao_tv)
-        var buttonsLayout           = v.findViewById<LinearLayout>(R.id.id_buttonsLinearLayout)
-        var buttonEditVH            = v.findViewById<Button>(R.id.id_listItemEdit)
-        var buttonDeleteVH          = v.findViewById<Button>(R.id.id_listItemDelete)
-        var pagnumeroVH             = v.findViewById<TextView>(R.id.id_pagina_tv)
+        var idTV = v.findViewById<TextView>(R.id.paisIdAdapter_IdTextView)
+        var nameTV = v.findViewById<TextView>(R.id.paisIdAdapter_NameTextView)
+        var officialTV = v.findViewById<TextView>(R.id.paisIdAdapter_OfficialTextView)
+        var acronymTV = v.findViewById<TextView>(R.id.paisIdAdapter_AcronymTextView)
+        var capitalTV = v.findViewById<TextView>(R.id.paisIdAdapter_CapitalTextView)
+        var regionTV = v.findViewById<TextView>(R.id.paisIdAdapter_RegionTextView)
+        var subregionTV = v.findViewById<TextView>(R.id.paisIdAdapter_SubRegionTextView)
+        var areaTV = v.findViewById<TextView>(R.id.paisIdAdapter_AreaTextView)
+        var populationTV = v.findViewById<TextView>(R.id.paisIdAdapter_PopulationTextView)
+        var continentTV = v.findViewById<TextView>(R.id.paisIdAdapter_ContinentTextView)
+        var buttonsLL = v.findViewById<LinearLayout>(R.id.paisIdAdapter_ButtonsLinearLayout)
+        var editButton = v.findViewById<Button>(R.id.paisIdAdapter_EditButton)
+        var deleteButton = v.findViewById<Button>(R.id.paisIdAdapter_DeleteButton)
+        var paginaTV = v.findViewById<TextView>(R.id.paisIdAdapter_PaginaTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,69 +55,124 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
         Log.d("LOOKOUT_UAV2", "onBindViewHolder")
         Log.d("LOOKOUT_UAV2", "POSITION: ${position}")
 
-        holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
-        holder.nomeVH.text = "Nome:\n\t\t=> " + showingList[position].nome.toString()
-        holder.regiaoVH.text = "Região:\n\t\t=> " + showingList[position].regiao.toString()
-        holder.regiaoIntermediariaVH.text =
-            if (showingList[position].regiaoIntermediaria.toString().isNullOrBlank()) {
-                "Região Intermediaria:\n\t\t=> -não informada-"
-            } else {
-                "Região Intermediaria:\n\t\t=> " + showingList[position].regiaoIntermediaria.toString()
-            }
-        holder.subRegiaoVH.text =
-            if (showingList[position].subRegiao.toString().isNullOrBlank()) {
-                "Sub-Região:\n\t\t=> -não informada-"
-            } else {
-                "Sub-Região:\n\t\t=> " + showingList[position].subRegiao.toString()
-            }
-        holder.pagnumeroVH.text =
-            "País " + position.plus(1).toString() + " de " + showingList.size.toString()
+        holder.idTV.text = "Id: [" + showingList[position].id.toString() + "]"
+        holder.nameTV.text = showingList[position].name
+        holder.officialTV.text = "Nome official:\n\t\t=> " +
+                if (showingList[position].official.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].official.toString()
+                }
+        holder.acronymTV.text = "Acronym (sigla):\n\t\t=> " +
+                if (showingList[position].acronym.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].acronym.toString()
+                }
+        holder.capitalTV.text = "Capital:\n\t\t=> " +
+                if (showingList[position].capital.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].capital.toString()
+                }
+        holder.regionTV.text = "Região:\n\t\t=> " +
+                if (showingList[position].region.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].region.toString()
+                }
+        holder.subregionTV.text = "Sub-Region:\n\t\t=> " +
+                if (showingList[position].subregion.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].subregion.toString()
+                }
+        holder.areaTV.text = "Area (Km^2):\n\t\t=> " +
+                if (showingList[position].area.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].area.toString()
+                }
+        holder.populationTV.text = "População:\n\t\t=> " +
+                if (showingList[position].population.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].population.toString()
+                }
+        holder.continentTV.text = "Continente:\n\t\t=> " +
+                if (showingList[position].continent.toString().isBlank()) {
+                    "-não informado-"
+                } else {
+                    showingList[position].continent.toString()
+                }
+        holder.paginaTV.text =
+            "País N° " + position.plus(1).toString() + " de " + showingList.size.toString()
 
         if (booleanMutableList[position]) {
-            holder.nomeVH.visibility = View.VISIBLE
-            holder.regiaoIntermediariaVH.visibility = View.VISIBLE
-            holder.subRegiaoVH.visibility = View.VISIBLE
-            holder.regiaoVH.visibility = View.VISIBLE
-            holder.buttonsLayout.visibility = View.VISIBLE
-            holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
+            holder.nameTV.visibility = View.VISIBLE
+            holder.officialTV.visibility = View.VISIBLE
+            holder.acronymTV.visibility = View.VISIBLE
+            holder.capitalTV.visibility = View.VISIBLE
+            holder.regionTV.visibility = View.VISIBLE
+            holder.subregionTV.visibility = View.VISIBLE
+            holder.areaTV.visibility = View.VISIBLE
+            holder.populationTV.visibility = View.VISIBLE
+            holder.continentTV.visibility = View.VISIBLE
+            holder.buttonsLL.visibility = View.VISIBLE
+            holder.idTV.text = "Id: [" + showingList[position].id.toString() + "]"
         } else {
-            holder.nomeVH.visibility = View.GONE
-            holder.regiaoIntermediariaVH.visibility = View.GONE
-            holder.subRegiaoVH.visibility = View.GONE
-            holder.regiaoVH.visibility = View.GONE
-            holder.buttonsLayout.visibility = View.GONE
-            holder.idVH.text = "[" + showingList[position].id.toString() + "] " + showingList[position].nome.toString()
+            holder.nameTV.visibility = View.GONE
+            holder.officialTV.visibility = View.GONE
+            holder.acronymTV.visibility = View.GONE
+            holder.capitalTV.visibility = View.GONE
+            holder.regionTV.visibility = View.GONE
+            holder.subregionTV.visibility = View.GONE
+            holder.areaTV.visibility = View.GONE
+            holder.populationTV.visibility = View.GONE
+            holder.continentTV.visibility = View.GONE
+            holder.buttonsLL.visibility = View.GONE
+            holder.idTV.text =
+                "[" + showingList[position].id.toString() + "] " + showingList[position].name.toString()
         }
-
-
-        holder.idVH.setOnClickListener {
+        holder.idTV.setOnClickListener {
             if (booleanMutableList[position]) {
-                holder.nomeVH.visibility = View.GONE
-                holder.regiaoIntermediariaVH.visibility = View.GONE
-                holder.subRegiaoVH.visibility = View.GONE
-                holder.regiaoVH.visibility = View.GONE
-                holder.buttonsLayout.visibility = View.GONE
-                holder.idVH.text = "[" + showingList[position].id.toString() + "] " + showingList[position].nome.toString()
+                holder.nameTV.visibility = View.GONE
+                holder.officialTV.visibility = View.GONE
+                holder.acronymTV.visibility = View.GONE
+                holder.capitalTV.visibility = View.GONE
+                holder.regionTV.visibility = View.GONE
+                holder.subregionTV.visibility = View.GONE
+                holder.areaTV.visibility = View.GONE
+                holder.populationTV.visibility = View.GONE
+                holder.continentTV.visibility = View.GONE
+                holder.buttonsLL.visibility = View.GONE
+                holder.idTV.text =
+                    "[" + showingList[position].id.toString() + "] " + showingList[position].name.toString()
                 booleanMutableList[position] = false
             } else {
-                holder.nomeVH.visibility = View.VISIBLE
-                holder.regiaoIntermediariaVH.visibility = View.VISIBLE
-                holder.subRegiaoVH.visibility = View.VISIBLE
-                holder.regiaoVH.visibility = View.VISIBLE
-                holder.buttonsLayout.visibility = View.VISIBLE
-                holder.idVH.text = "Id: [" + showingList[position].id.toString() + "]"
+                holder.nameTV.visibility = View.VISIBLE
+                holder.officialTV.visibility = View.VISIBLE
+                holder.acronymTV.visibility = View.VISIBLE
+                holder.capitalTV.visibility = View.VISIBLE
+                holder.regionTV.visibility = View.VISIBLE
+                holder.subregionTV.visibility = View.VISIBLE
+                holder.areaTV.visibility = View.VISIBLE
+                holder.populationTV.visibility = View.VISIBLE
+                holder.continentTV.visibility = View.VISIBLE
+                holder.buttonsLL.visibility = View.VISIBLE
+                holder.idTV.text = "Id: [" + showingList[position].id.toString() + "]"
                 booleanMutableList[position] = true
             }
         }
-        holder.buttonEditVH.setOnClickListener{
+        holder.editButton.setOnClickListener {
             buttonEditAlertDialog(showingList[position])
         }
-        holder.buttonDeleteVH.setOnClickListener{
+        holder.deleteButton.setOnClickListener {
             buttonDeleteAlertDialog(showingList[position])
         }
     }
 
-    fun updateData(newData: List<Pais>) {
+    fun updateData(newData: List<Country>) {
         Log.d("LOOKOUT_UAV2", "updateData")
         showingList = newData
         booleanMutableList.clear()
@@ -119,100 +180,118 @@ class PaisIdAdapter(var con: Context, var paisList: List<Pais>, var paisViewMode
         notifyDataSetChanged()
     }
 
-    private fun buttonEditAlertDialog(pais : Pais) {
+    private fun buttonEditAlertDialog(country: Country) {
         val dialogView = LayoutInflater.from(con).inflate(R.layout.edit_id_item, null)
-        val editItemId = dialogView.findViewById<EditText>(R.id.editIdItemId)
-        val editItemNome = dialogView.findViewById<EditText>(R.id.editIdItemNome)
-        val editItemRegiao = dialogView.findViewById<EditText>(R.id.editIdItemRegiao)
-        val editItemRegiaoIntermediaria = dialogView.findViewById<EditText>(R.id.editIdItemRegiaoIntermediaria)
-        val editItemSubRegiao = dialogView.findViewById<EditText>(R.id.editIdItemSubRegiao)
-        val editItemCancel: Button = dialogView.findViewById(R.id.editIdItemCancel)
-        val editItemButton: Button = dialogView.findViewById(R.id.editIdItemButton)
+        var idET = dialogView.findViewById<EditText>(R.id.editIdItem_IdEditText)
+        var nameET = dialogView.findViewById<EditText>(R.id.editIdItem_NameEditText)
+        var officialET = dialogView.findViewById<EditText>(R.id.editIdItem_OfficialEditText)
+        var acronymET = dialogView.findViewById<EditText>(R.id.editIdItem_AcronymEditText)
+        var capitalET = dialogView.findViewById<EditText>(R.id.editIdItem_CapitalEditText)
+        var regionET = dialogView.findViewById<EditText>(R.id.editIdItem_RegionEditText)
+        var subregionET = dialogView.findViewById<EditText>(R.id.editIdItem_SubRegionEditText)
+        var areaET = dialogView.findViewById<EditText>(R.id.editIdItem_AreaEditText)
+        var populationET = dialogView.findViewById<EditText>(R.id.editIdItem_PopulationEditText)
+        var continentET = dialogView.findViewById<EditText>(R.id.editIdItem_ContinentEditText)
+        var editButton = dialogView.findViewById<Button>(R.id.editIdItem_EditButton)
+        var cancelButton = dialogView.findViewById<Button>(R.id.editIdItem_CancelButton)
 
-        editItemId.hint = pais.id.toString()
-        editItemNome.hint = pais.nome.toString()
-        editItemRegiao.hint = pais.regiao.toString()
-        editItemRegiaoIntermediaria.hint = pais.regiaoIntermediaria.toString()
-        editItemSubRegiao.hint = pais.subRegiao.toString()
+        idET.hint = country.id.toString()
+        nameET.hint = country.name.toString()
+        officialET.hint = country.official.toString()
+        acronymET.hint = country.acronym.toString()
+        capitalET.hint = country.capital.toString()
+        regionET.hint = country.region.toString()
+        subregionET.hint = country.subregion.toString()
+        areaET.hint = country.area.toString()
+        populationET.hint = country.population.toString()
+        continentET.hint = country.continent.toString()
 
         val builder = AlertDialog.Builder(con)
         builder.setView(dialogView)
 
         val dialog = builder.create()
 
-        editItemCancel.setOnClickListener {
-            // Handle insert button click
-            // Perform any desired action
+        cancelButton.setOnClickListener {
             dialog.dismiss()
         }
 
-        editItemButton.setOnClickListener {
-            if(editItemId.text.isBlank() && editItemNome.text.isBlank() && editItemRegiao.text.isBlank() && editItemRegiaoIntermediaria.text.isBlank() && editItemSubRegiao.text.isBlank()){
-                Toast.makeText(con,"Digite nos campos acima para fazer edições no país.",Toast.LENGTH_SHORT).show()
-            }
-            else{
-                val itemId = editItemId.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.id.toString()
-                val itemName = editItemNome.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.nome.toString()
-                val itemRegiao = editItemRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiao.toString()
-                val itemRegiaoIntermediaria = editItemRegiaoIntermediaria.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.regiaoIntermediaria.toString()
-                val itemSubRegiao = editItemSubRegiao.text.toString().trim().takeIf { it.isNotBlank() } ?: pais.subRegiao.toString()
-
-                if(editItemId.text.toString().isBlank()){
-                    if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                        val entity = Pais(
-                            id = pais.id,
-                            nome = itemName,
-                            regiao = itemRegiao,
-                            regiaoIntermediaria = itemRegiaoIntermediaria,
-                            subRegiao = itemSubRegiao
-                        )
-
-                        paisViewModel.update(entity)
-                        Toast.makeText(con, "Edição efetuada: ID ${pais.id.toString()}", Toast.LENGTH_SHORT).show()
+        editButton.setOnClickListener {
+            if (nameET.text.isBlank()) {
+                Toast.makeText(con, "Nome não pode estar vazio.", Toast.LENGTH_SHORT).show()
+            } else {
+                if (idET.text.toString().isBlank() or
+                    (idET.text.toString() == country.id.toString())
+                ) { //Nada foi digitado no IdEditText
+                    val entity = Country(
+                        id = country.id,
+                        name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.name.toString(),
+                        official = officialET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.official.toString(),
+                        acronym = acronymET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.acronym.toString(),
+                        capital = capitalET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.capital.toString(),
+                        region = regionET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.region.toString(),
+                        subregion = subregionET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.subregion.toString(),
+                        area = areaET.text.toString().toDoubleOrNull() ?: country.area,
+                        population = populationET.text.toString().toIntOrNull()
+                            ?: country.population,
+                        continent = continentET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.continent.toString()
+                    )
+                    paisViewModel.update(entity)
+                    Toast.makeText(con, "Edição efetuada: ID ${country.id}", Toast.LENGTH_SHORT)
+                        .show()
+                    dialog.dismiss()
+                } else { // Algo foi digitado no IdEditText
+                    val entity = Country(
+                        id = idET.text.toString().toInt(),
+                        name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.name.toString(),
+                        official = officialET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.official.toString(),
+                        acronym = acronymET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.acronym.toString(),
+                        capital = capitalET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.capital.toString(),
+                        region = regionET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.region.toString(),
+                        subregion = subregionET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.subregion.toString(),
+                        area = areaET.text.toString().toDoubleOrNull() ?: country.area,
+                        population = populationET.text.toString().toIntOrNull()
+                            ?: country.population,
+                        continent = continentET.text.toString().trim().takeIf { it.isNotBlank() }
+                            ?: country.continent.toString()
+                    )
+                    if (paisViewModel.insert(entity)) {
+                        paisViewModel.deleteById(country.id ?: 0)
+                        Toast.makeText(con, "Edição efetuada: ID ${country.id}", Toast.LENGTH_SHORT)
+                            .show()
                         dialog.dismiss()
                     } else {
-                        // Show an error or prompt to fill all the required fields
-                        Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-                    if (itemName.isNotEmpty() && itemRegiao.isNotEmpty()) {
-                        val entity = Pais(
-                            id = itemId.toInt(),
-                            nome = itemName,
-                            regiao = itemRegiao,
-                            regiaoIntermediaria = itemRegiaoIntermediaria,
-                            subRegiao = itemSubRegiao
-                        )
-                        if(paisViewModel.insert(entity)){
-                            paisViewModel.deleteById(pais.id ?: 0)
-                            Toast.makeText(con, "Edição efetuada: ID ${itemId}", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
-                        } else {
-                            Toast.makeText(con, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    } else {
-                        // Show an error or prompt to fill all the required fields
-                        Toast.makeText(con,"Nome e Região não podem estar vazios.",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(con, "ID invalido ou já existente.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
-
             }
         }
-
         dialog.show()
     }
 
-    private fun buttonDeleteAlertDialog(pais : Pais) {
+    private fun buttonDeleteAlertDialog(country: Country) {
         val alertDialogBuilder = AlertDialog.Builder(con)
-        val id: Int = pais.id ?: 0
+        val id: Int = country.id ?: 0
         alertDialogBuilder.setTitle("Deletar Id")
-        alertDialogBuilder.setMessage("O Id ${pais.id} será deletado, deseja continuar ?")
+        alertDialogBuilder.setMessage("O Id ${country.id} será deletado, deseja continuar ?")
         alertDialogBuilder.setPositiveButton("Sim, deletar.") { dialog: DialogInterface, _: Int ->
-            if(paisViewModel.deleteById(id)){
+            if (paisViewModel.deleteById(id)) {
                 dialog.dismiss()
                 Toast.makeText(con, "Id deletado.", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(con, "Error ID not found", Toast.LENGTH_SHORT).show()
             }
         }

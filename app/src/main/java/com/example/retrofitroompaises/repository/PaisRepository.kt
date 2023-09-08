@@ -4,15 +4,15 @@ import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.retrofitroompaises.data.PaisDao
-import com.example.retrofitroompaises.model.Pais
+import com.example.retrofitroompaises.model.Country
 
 class PaisRepository(private val paisDao: PaisDao) {
 
-    val allPais: LiveData<List<Pais>> = paisDao.getAll()
+    val allPais: LiveData<List<Country>> = paisDao.getAll()
 
-    fun insert(pais: Pais): Boolean {
+    fun insert(country: Country): Boolean {
         return try {
-            paisDao.insert(pais)
+            paisDao.insert(country)
             // Insertion successful, no duplicate ID
             true
         } catch (e: SQLiteConstraintException) {
@@ -22,43 +22,43 @@ class PaisRepository(private val paisDao: PaisDao) {
         }
     }
 
-    fun update(pais : Pais){
+    fun update(pais : Country){
         paisDao.update(pais)
     }
 
-    fun getAll(): LiveData<List<Pais>>{
+    fun getAll(): LiveData<List<Country>>{
         return paisDao.getAll()
     }
-    fun getAllDesc(): LiveData<List<Pais>>{
+    fun getAllDesc(): LiveData<List<Country>>{
         return paisDao.getAllDesc()
     }
 
-    fun getAllByRegiao(): LiveData<List<Pais>>{
-        return paisDao.getAllByRegiao()
+    fun getAllByRegion(): LiveData<List<Country>>{
+        return paisDao.getAllByRegion()
     }
-    fun getAllByRegiaoDesc(): LiveData<List<Pais>>{
-        return paisDao.getAllByRegiaoDesc()
-    }
-
-    fun getAllByRegiaoIntermediaria(): LiveData<List<Pais>>{
-        return paisDao.getAllByRegiaoIntermediaria()
-    }
-    fun getAllByRegiaoIntermediariaDesc(): LiveData<List<Pais>>{
-        return paisDao.getAllByRegiaoIntermediariaDesc()
+    fun getAllByRegionDesc(): LiveData<List<Country>>{
+        return paisDao.getAllByRegionDesc()
     }
 
-    fun getAllBySubRegiao(): LiveData<List<Pais>>{
-        return paisDao.getAllBySubRegiao()
+    fun getAllByContinent(): LiveData<List<Country>>{
+        return paisDao.getAllByContinent()
     }
-    fun getAllBySubRegiaoDesc(): LiveData<List<Pais>>{
-        return paisDao.getAllBySubRegiaoDesc()
+    fun getAllByContinentDesc(): LiveData<List<Country>>{
+        return paisDao.getAllByContinentDesc()
     }
 
-    fun getAllById(): LiveData<List<Pais>>{
+    fun getAllBySubRegion(): LiveData<List<Country>>{
+        return paisDao.getAllBySubRegion()
+    }
+    fun getAllBySubRegionDesc(): LiveData<List<Country>>{
+        return paisDao.getAllBySubRegionDesc()
+    }
+
+    fun getAllById(): LiveData<List<Country>>{
         return paisDao.getAllById()
     }
 
-    fun getAllByIdDesc(): LiveData<List<Pais>>{
+    fun getAllByIdDesc(): LiveData<List<Country>>{
         return paisDao.getAllByIdDesc()
     }
 
@@ -66,9 +66,9 @@ class PaisRepository(private val paisDao: PaisDao) {
         paisDao.deleteAll()
     }
 
-    fun delete(pais: Pais): Boolean {
+    fun delete(country: Country): Boolean {
         return try {
-            paisDao.delete(pais)
+            paisDao.delete(country)
             // Insertion successful, no duplicate ID
             true
         } catch (e: SQLiteConstraintException) {
@@ -90,37 +90,37 @@ class PaisRepository(private val paisDao: PaisDao) {
         }
     }
 
-    fun findByNome(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findByNome(searchTarget)
+    fun findByName(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findByName(searchTarget)
     }
 
-    fun findById(searchTarget: String): LiveData<List<Pais>> {
+    fun findById(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findById(searchTarget)
     }
 
-    fun findByIdDesc(searchTarget: String): LiveData<List<Pais>> {
+    fun findByIdDesc(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByIdDesc(searchTarget)
     }
 
 
-    fun findByRegiao(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findByRegiao(searchTarget)
+    fun findByRegion(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findByRegion(searchTarget)
     }
-    fun findByRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findByRegiaoDesc(searchTarget)
-    }
-
-    fun findByRegiaoIntermediaria(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findByRegiaoIntermediaria(searchTarget)
-    }
-    fun findByRegiaoIntermediariaDesc(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findByRegiaoIntermediariaDesc(searchTarget)
+    fun findByRegionDesc(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findByRegionDesc(searchTarget)
     }
 
-    fun findBySubRegiao(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findBySubRegiao(searchTarget)
+    fun findByContinent(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findByContinent(searchTarget)
     }
-    fun findBySubRegiaoDesc(searchTarget: String): LiveData<List<Pais>> {
-        return paisDao.findBySubRegiaoDesc(searchTarget)
+    fun findByContinentDesc(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findByContinentDesc(searchTarget)
+    }
+
+    fun findBySubRegion(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findBySubRegion(searchTarget)
+    }
+    fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>> {
+        return paisDao.findBySubRegionDesc(searchTarget)
     }
 }
