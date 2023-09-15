@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.retrofitroompaises.model.ChangeLog
 import com.example.retrofitroompaises.model.Country
 
-@Database(entities = [Country::class], version = 3, exportSchema = false)
+@Database(entities = [Country::class, ChangeLog::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun paisDao(): PaisDao
 

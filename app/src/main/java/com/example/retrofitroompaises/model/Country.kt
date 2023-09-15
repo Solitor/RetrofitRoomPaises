@@ -11,30 +11,30 @@ data class Country(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
 
     @SerializedName("nome")
-    @ColumnInfo val name: String,       //country.name.common
+    @ColumnInfo val name: String,
 
     @SerializedName("official_name")
-    @ColumnInfo val official: String?,  //country.name.official
+    @ColumnInfo val official: String?,
 
     @SerializedName("cca3")
-    @ColumnInfo val acronym: String?,   //country.cca3
+    @ColumnInfo val acronym: String?,
 
     @SerializedName("capital")
-    @ColumnInfo val capital: String?,   //country.capital?.firstOrNull()
+    @ColumnInfo val capital: String?,
 
     @SerializedName("region")
-    @ColumnInfo val region: String?,    //country.region
+    @ColumnInfo val region: String?,
 
     @SerializedName("subregion")
-    @ColumnInfo val subregion: String?, //country.subregion
+    @ColumnInfo val subregion: String?,
 
     @SerializedName("area")
-    @ColumnInfo val area: Double?,      //country.area
+    @ColumnInfo val area: Double?,
 
     @SerializedName("population")
-    @ColumnInfo val population: Int?,   //country.population
+    @ColumnInfo val population: Int?,
 
     @SerializedName("continents")
-    @ColumnInfo val continent: String?, //country.continents.firstOrNull()
+    @ColumnInfo val continent: String?
 
 )

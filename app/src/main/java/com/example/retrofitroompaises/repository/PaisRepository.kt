@@ -10,113 +10,87 @@ class PaisRepository(private val paisDao: PaisDao) {
 
     val allPais: LiveData<List<Country>> = paisDao.getAll()
 
+    // === Insert Operations =======================================================================
     fun insert(country: Country): Boolean {
-        return try {
-            paisDao.insert(country)
-            // Insertion successful, no duplicate ID
-            true
-        } catch (e: SQLiteConstraintException) {
-            // Duplicate ID, handle the conflict here
-            Log.e("insertError", "Duplicate ID")
-            false
-        }
+        return paisDao.insertAndLog(country)
     }
 
-    fun update(pais : Country){
-        paisDao.update(pais)
+
+    // === Update Operations =======================================================================
+    fun update(country : Country){
+        paisDao.updateAndLog(country)
     }
 
+
+    // === Delete Operations =======================================================================
+    fun delete(country: Country): Boolean {
+        return paisDao.deleteAndLog(country)
+    }
+
+    fun deleteById(id: Int): Boolean {
+        return paisDao.deleteByIdAndLog(id)
+    }
+
+    fun deleteAll(){
+        paisDao.deleteAllAndLog()
+    }
+
+
+    // === Get Operations ==========================================================================
     fun getAll(): LiveData<List<Country>>{
         return paisDao.getAll()
     }
     fun getAllDesc(): LiveData<List<Country>>{
         return paisDao.getAllDesc()
     }
-
     fun getAllByRegion(): LiveData<List<Country>>{
         return paisDao.getAllByRegion()
     }
     fun getAllByRegionDesc(): LiveData<List<Country>>{
         return paisDao.getAllByRegionDesc()
     }
-
     fun getAllByContinent(): LiveData<List<Country>>{
         return paisDao.getAllByContinent()
     }
     fun getAllByContinentDesc(): LiveData<List<Country>>{
         return paisDao.getAllByContinentDesc()
     }
-
     fun getAllBySubRegion(): LiveData<List<Country>>{
         return paisDao.getAllBySubRegion()
     }
     fun getAllBySubRegionDesc(): LiveData<List<Country>>{
         return paisDao.getAllBySubRegionDesc()
     }
-
     fun getAllById(): LiveData<List<Country>>{
         return paisDao.getAllById()
     }
-
     fun getAllByIdDesc(): LiveData<List<Country>>{
         return paisDao.getAllByIdDesc()
     }
 
-    fun deleteAll(){
-        paisDao.deleteAll()
-    }
 
-    fun delete(country: Country): Boolean {
-        return try {
-            paisDao.delete(country)
-            // Insertion successful, no duplicate ID
-            true
-        } catch (e: SQLiteConstraintException) {
-            // Duplicate ID, handle the conflict here
-            Log.e("deleteError", "Pais not found")
-            false
-        }
-    }
-
-    fun deleteById(id: Int): Boolean {
-        return try {
-            paisDao.deleteById(id)
-            // Insertion successful, no duplicate ID
-            true
-        } catch (e: SQLiteConstraintException) {
-            // Duplicate ID, handle the conflict here
-            Log.e("deleteError", "ID not found")
-            false
-        }
-    }
-
+    // === Find Operations =========================================================================
     fun findByName(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByName(searchTarget)
     }
-
     fun findById(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findById(searchTarget)
     }
-
     fun findByIdDesc(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByIdDesc(searchTarget)
     }
-
-
     fun findByRegion(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByRegion(searchTarget)
     }
     fun findByRegionDesc(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByRegionDesc(searchTarget)
     }
-
     fun findByContinent(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByContinent(searchTarget)
     }
     fun findByContinentDesc(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findByContinentDesc(searchTarget)
     }
-
     fun findBySubRegion(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findBySubRegion(searchTarget)
     }

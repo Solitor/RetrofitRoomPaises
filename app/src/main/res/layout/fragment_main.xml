@@ -152,4 +152,19 @@
         app:maxImageSize="45dp"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fragmentMain_fabLogFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#A2EF08"
+        android:clickable="true"
+        android:contentDescription="Log Fragment Button"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentMain_fabIdFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp"
+        app:srcCompat="@android:drawable/stat_notify_chat" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

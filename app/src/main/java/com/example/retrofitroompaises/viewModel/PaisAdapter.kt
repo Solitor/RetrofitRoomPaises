@@ -204,32 +204,60 @@ class PaisAdapter(var con: Context, var paisViewModel: PaisViewModel) :
         }
 
         editButton.setOnClickListener {
-            if (nameET.text.isBlank()) {
-                Toast.makeText(con, "Nome não pode estar vazio.", Toast.LENGTH_SHORT).show()
-            } else {
-                val entity = Country(
-                    id = country.id,
-                    name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.name.toString(),
-                    official = officialET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.official.toString(),
-                    acronym = acronymET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.acronym.toString(),
-                    capital = capitalET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.capital.toString(),
-                    region = regionET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.region.toString(),
-                    subregion = subregionET.text.toString().trim().takeIf { it.isNotBlank() }
-                        ?: country.subregion.toString(),
-                    area = areaET.text.toString().toDoubleOrNull() ?: country.area,
-                    population = populationET.text.toString().toIntOrNull() ?: country.population,
-                    continent = continentET.text.toString().trim().takeIf { it.isNotBlank() }
+            val entity = Country(
+                id = country.id,
+                name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
+                    ?: country.name.toString(),
+                official = if (officialET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    officialET.text.toString().trim().takeIf { it.isNotBlank() }
+                        ?: country.official.toString()
+                },
+                acronym = if (acronymET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    acronymET.text.toString().trim().takeIf { it.isNotBlank() }
+                        ?: country.acronym.toString()
+                },
+                capital = if (capitalET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    capitalET.text.toString().trim().takeIf { it.isNotBlank() }
+                        ?: country.capital.toString()
+                },
+                region = if (regionET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    regionET.text.toString().trim().takeIf { it.isNotBlank() }
+                        ?: country.region.toString()
+                },
+                subregion = if (subregionET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    subregionET.text.toString().trim().takeIf { it.isNotBlank() }
+                        ?: country.subregion.toString()
+                },
+                area = if (areaET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    areaET.text.toString().toDoubleOrNull() ?: country.area
+                },
+                population = if (populationET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    populationET.text.toString().toIntOrNull() ?: country.population
+                },
+                continent = if (continentET.text.toString().trim().equals("null")) {
+                    null
+                } else {
+                    continentET.text.toString().trim().takeIf { it.isNotBlank() }
                         ?: country.continent.toString()
-                )
-                paisViewModel.update(entity)
-                Toast.makeText(con, "Edição efetuada: ${country.name}", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
+                }
+            )
+            paisViewModel.update(entity)
+            Toast.makeText(con, "Edição efetuada: ${country.name}", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
         }
         dialog.show()
     }

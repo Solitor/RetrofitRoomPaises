@@ -37,6 +37,24 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         repository.update(country)
     }
 
+    fun delete(country: Country): Boolean = runBlocking {
+        val result = CompletableDeferred<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val isSuccess = repository.delete(country)
+            result.complete(isSuccess)
+        }
+        result.await()
+    }
+
+    fun deleteById(id: Int): Boolean = runBlocking {
+        val result = CompletableDeferred<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val isSuccess = repository.deleteById(id)
+            result.complete(isSuccess)
+        }
+        result.await()
+    }
+
     fun deleteAllCountries() = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }
@@ -112,24 +130,6 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
     }
     fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>> {
         return repository.findBySubRegionDesc(searchTarget)
-    }
-
-    fun delete(country: Country): Boolean = runBlocking {
-        val result = CompletableDeferred<Boolean>()
-        viewModelScope.launch(Dispatchers.IO) {
-            val isSuccess = repository.delete(country)
-            result.complete(isSuccess)
-        }
-        result.await()
-    }
-
-    fun deleteById(id: Int): Boolean = runBlocking {
-        val result = CompletableDeferred<Boolean>()
-        viewModelScope.launch(Dispatchers.IO) {
-            val isSuccess = repository.deleteById(id)
-            result.complete(isSuccess)
-        }
-        result.await()
     }
 
 }

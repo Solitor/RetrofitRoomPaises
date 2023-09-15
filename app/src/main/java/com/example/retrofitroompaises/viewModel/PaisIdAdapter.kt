@@ -226,21 +226,52 @@ class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
                         id = country.id,
                         name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
                             ?: country.name.toString(),
-                        official = officialET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.official.toString(),
-                        acronym = acronymET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.acronym.toString(),
-                        capital = capitalET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.capital.toString(),
-                        region = regionET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.region.toString(),
-                        subregion = subregionET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.subregion.toString(),
-                        area = areaET.text.toString().toDoubleOrNull() ?: country.area,
-                        population = populationET.text.toString().toIntOrNull()
-                            ?: country.population,
-                        continent = continentET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.continent.toString()
+                        official = if (officialET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            officialET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.official.toString()
+                        },
+                        acronym = if (acronymET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            acronymET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.acronym.toString()
+                        },
+                        capital = if (capitalET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            capitalET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.capital.toString()
+                        },
+                        region = if (regionET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            regionET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.region.toString()
+                        },
+                        subregion = if (subregionET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            subregionET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.subregion.toString()
+                        },
+                        area = if (areaET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            areaET.text.toString().toDoubleOrNull() ?: country.area
+                        },
+                        population = if (populationET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            populationET.text.toString().toIntOrNull() ?: country.population
+                        },
+                        continent = if (continentET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            continentET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.continent.toString()
+                        }
                     )
                     paisViewModel.update(entity)
                     Toast.makeText(con, "Edição efetuada: ID ${country.id}", Toast.LENGTH_SHORT)
@@ -251,21 +282,52 @@ class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
                         id = idET.text.toString().toInt(),
                         name = nameET.text.toString().trim().takeIf { it.isNotBlank() }
                             ?: country.name.toString(),
-                        official = officialET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.official.toString(),
-                        acronym = acronymET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.acronym.toString(),
-                        capital = capitalET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.capital.toString(),
-                        region = regionET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.region.toString(),
-                        subregion = subregionET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.subregion.toString(),
-                        area = areaET.text.toString().toDoubleOrNull() ?: country.area,
-                        population = populationET.text.toString().toIntOrNull()
-                            ?: country.population,
-                        continent = continentET.text.toString().trim().takeIf { it.isNotBlank() }
-                            ?: country.continent.toString()
+                        official = if (officialET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            officialET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.official.toString()
+                        },
+                        acronym = if (acronymET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            acronymET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.acronym.toString()
+                        },
+                        capital = if (capitalET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            capitalET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.capital.toString()
+                        },
+                        region = if (regionET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            regionET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.region.toString()
+                        },
+                        subregion = if (subregionET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            subregionET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.subregion.toString()
+                        },
+                        area = if (areaET.text.toString().trim().equals("-")) {
+                            null
+                        } else {
+                            areaET.text.toString().toDoubleOrNull() ?: country.area
+                        },
+                        population = if (populationET.text.toString().trim().equals("-")) {
+                            null
+                        } else {
+                            populationET.text.toString().toIntOrNull() ?: country.population
+                        },
+                        continent = if (continentET.text.toString().trim().equals("null")) {
+                            null
+                        } else {
+                            continentET.text.toString().trim().takeIf { it.isNotBlank() }
+                                ?: country.continent.toString()
+                        }
                     )
                     if (paisViewModel.insert(entity)) {
                         paisViewModel.deleteById(country.id ?: 0)
