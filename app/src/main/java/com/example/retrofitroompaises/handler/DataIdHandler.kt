@@ -2,7 +2,6 @@ package com.example.retrofitroompaises.handler
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.retrofitroompaises.viewModel.PaisAdapter
 import com.example.retrofitroompaises.viewModel.PaisIdAdapter
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 

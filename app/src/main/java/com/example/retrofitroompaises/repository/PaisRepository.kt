@@ -3,7 +3,9 @@ package com.example.retrofitroompaises.repository
 import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 import com.example.retrofitroompaises.data.PaisDao
+import com.example.retrofitroompaises.model.ChangeLog
 import com.example.retrofitroompaises.model.Country
 
 class PaisRepository(private val paisDao: PaisDao) {
@@ -68,6 +70,22 @@ class PaisRepository(private val paisDao: PaisDao) {
         return paisDao.getAllByIdDesc()
     }
 
+    fun getAllChangeLogNewest(): LiveData<List<ChangeLog>>{
+        return paisDao.getAllChangeLogNewest()
+    }
+
+    fun getAllChangeLogOldest(): LiveData<List<ChangeLog>>{
+        return paisDao.getAllChangeLogOldest()
+    }
+
+    fun getAllChangeLogNewestOperation(operationTarget: String): LiveData<List<ChangeLog>>{
+        return paisDao.getAllChangeLogNewestOperation(operationTarget)
+    }
+
+    fun getAllChangeLogOldestOperation(operationTarget: String): LiveData<List<ChangeLog>>{
+        return paisDao.getAllChangeLogOldestOperation(operationTarget)
+    }
+
 
     // === Find Operations =========================================================================
     fun findByName(searchTarget: String): LiveData<List<Country>> {
@@ -96,5 +114,21 @@ class PaisRepository(private val paisDao: PaisDao) {
     }
     fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>> {
         return paisDao.findBySubRegionDesc(searchTarget)
+    }
+
+    fun findChangeLogByIdNewest(searchTarget: String):LiveData<List<ChangeLog>>{
+        return paisDao.findChangeLogByIdNewest(searchTarget)
+    }
+
+    fun findChangeLogByIdOldest(searchTarget: String):LiveData<List<ChangeLog>>{
+        return paisDao.findChangeLogByIdOldest(searchTarget)
+    }
+
+    fun findChangeLogByIdNewestOperation(searchTarget: String,operationTarget: String):LiveData<List<ChangeLog>>{
+        return paisDao.findChangeLogByIdNewestOperation(searchTarget, operationTarget)
+    }
+
+    fun findChangeLogByIdOldestOperation(searchTarget: String,operationTarget: String):LiveData<List<ChangeLog>>{
+        return paisDao.findChangeLogByIdOldestOperation(searchTarget, operationTarget)
     }
 }

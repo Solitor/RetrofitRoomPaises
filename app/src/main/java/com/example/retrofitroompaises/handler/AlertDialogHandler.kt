@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.retrofitroompaises.R
 import com.example.retrofitroompaises.model.Country
-import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 
 class AlertDialogHandler(

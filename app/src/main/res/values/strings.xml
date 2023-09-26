@@ -16,4 +16,15 @@
         <item>IDs (descendentes) ↑</item>
     </string-array>
 
+    <string-array name="log_options">
+        <item>Newest ↑</item>
+        <item>Oldest ↓</item>
+        <item>Newest "INSERT" ↑</item>
+        <item>Oldest "INSERT" ↓</item>
+        <item>Newest "UPDATE" ↑</item>
+        <item>Oldest "UPDATE" ↓</item>
+        <item>Newest "DELETE" ↑</item>
+        <item>Oldest "DELETE" ↓</item>
+    </string-array>
+
 </resources>

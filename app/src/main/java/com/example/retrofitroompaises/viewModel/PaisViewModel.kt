@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.retrofitroompaises.data.AppDatabase
+import com.example.retrofitroompaises.model.ChangeLog
 import com.example.retrofitroompaises.model.Country
 import com.example.retrofitroompaises.model.Pais
 import com.example.retrofitroompaises.repository.PaisRepository
@@ -33,9 +34,13 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         result.await()
     }
 
+
+
     fun update(country:Country) = viewModelScope.launch(Dispatchers.IO) {
         repository.update(country)
     }
+
+
 
     fun delete(country: Country): Boolean = runBlocking {
         val result = CompletableDeferred<Boolean>()
@@ -58,6 +63,9 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
     fun deleteAllCountries() = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteAll()
     }
+
+
+
 
     fun getAllCountries(): LiveData<List<Country>> {
         return repository.getAll()
@@ -99,6 +107,25 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         return repository.getAllByIdDesc()
     }
 
+    fun getAllChangeLogNewest(): LiveData<List<ChangeLog>>{
+        return repository.getAllChangeLogNewest()
+    }
+
+    fun getAllChangeLogOldest(): LiveData<List<ChangeLog>>{
+        return repository.getAllChangeLogOldest()
+    }
+
+    fun getAllChangeLogNewestOperation(operationTarget: String): LiveData<List<ChangeLog>>{
+        return repository.getAllChangeLogNewestOperation(operationTarget)
+    }
+
+    fun getAllChangeLogOldestOperation(operationTarget: String): LiveData<List<ChangeLog>>{
+        return repository.getAllChangeLogOldestOperation(operationTarget)
+    }
+
+
+
+
     fun findByName(searchTarget: String): LiveData<List<Country>>{
         return repository.findByName(searchTarget)
     }
@@ -132,4 +159,19 @@ class PaisViewModel(application: Application): AndroidViewModel(application) {
         return repository.findBySubRegionDesc(searchTarget)
     }
 
+    fun findChangeLogByIdNewest(searchTarget: String):LiveData<List<ChangeLog>>{
+        return repository.findChangeLogByIdNewest(searchTarget)
+    }
+
+    fun findChangeLogByIdOldest(searchTarget: String):LiveData<List<ChangeLog>>{
+        return repository.findChangeLogByIdOldest(searchTarget)
+    }
+
+    fun findChangeLogByIdNewestOperation(searchTarget: String,operationTarget: String):LiveData<List<ChangeLog>>{
+        return repository.findChangeLogByIdNewestOperation(searchTarget, operationTarget)
+    }
+
+    fun findChangeLogByIdOldestOperation(searchTarget: String,operationTarget: String):LiveData<List<ChangeLog>>{
+        return repository.findChangeLogByIdOldestOperation(searchTarget, operationTarget)
+    }
 }

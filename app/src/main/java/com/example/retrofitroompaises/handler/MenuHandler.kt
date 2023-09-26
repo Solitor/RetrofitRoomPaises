@@ -12,6 +12,7 @@ class MenuHandler(view: View) {
     var fabReset: FloatingActionButton = view.findViewById(R.id.fragmentMain_fabReset)
     var fabFilterFragment: FloatingActionButton = view.findViewById(R.id.fragmentMain_fabFilterFragment)
     var fabIdFragment: FloatingActionButton = view.findViewById(R.id.fragmentMain_fabIdFragment)
+    var fabLogFragment: FloatingActionButton = view.findViewById(R.id.fragmentMain_fabLogFragment)
 
     fun closeMenu() {
         fabMenu.visibility = View.VISIBLE

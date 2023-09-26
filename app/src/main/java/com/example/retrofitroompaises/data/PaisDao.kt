@@ -19,10 +19,7 @@ interface PaisDao {
         val gson = Gson()
         return gson.toJson(country)
     }
-    fun jsonToCountry(jsonString: String): Country? {
-        val gson = Gson()
-        return gson.fromJson(jsonString, Country::class.java)
-    }
+
 
     // === Insert Operations =======================================================================
     @Insert(onConflict = OnConflictStrategy.ABORT)
@@ -167,6 +164,19 @@ interface PaisDao {
     @Query("SELECT * FROM country_table WHERE name = :name")
     fun getCountryByName(name:String): Country
 
+    @Query("SELECT * FROM change_log ORDER BY timestamp DESC")
+    fun getAllChangeLogNewest():LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log ORDER BY timestamp ASC")
+    fun getAllChangeLogOldest():LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log WHERE operation = :operationTarget ORDER BY timestamp DESC")
+    fun getAllChangeLogNewestOperation(operationTarget: String):LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log WHERE operation = :operationTarget ORDER BY timestamp ASC")
+    fun getAllChangeLogOldestOperation(operationTarget: String):LiveData<List<ChangeLog>>
+
+
 
     // === Find Operations =========================================================================
     @Query("SELECT * FROM country_table WHERE LOWER(name) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE ASC")
@@ -195,4 +205,16 @@ interface PaisDao {
 
     @Query("SELECT * FROM country_table WHERE LOWER(subregion) LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY name COLLATE NOCASE DESC")
     fun findBySubRegionDesc(searchTarget: String): LiveData<List<Country>>
+
+    @Query("SELECT * FROM change_log WHERE countryId LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY timestamp COLLATE NOCASE DESC")
+    fun findChangeLogByIdNewest(searchTarget: String): LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log WHERE countryId LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY timestamp COLLATE NOCASE ASC")
+    fun findChangeLogByIdOldest(searchTarget: String): LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log WHERE operation = :operationTarget AND countryId LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY timestamp COLLATE NOCASE DESC")
+    fun findChangeLogByIdNewestOperation(searchTarget: String, operationTarget: String): LiveData<List<ChangeLog>>
+
+    @Query("SELECT * FROM change_log WHERE operation = :operationTarget AND countryId LIKE '%' || LOWER(:searchTarget) || '%' ORDER BY timestamp COLLATE NOCASE ASC")
+    fun findChangeLogByIdOldestOperation(searchTarget: String, operationTarget: String): LiveData<List<ChangeLog>>
 }

@@ -25,6 +25,7 @@ class PaisAdapter(var con: Context, var paisViewModel: PaisViewModel) :
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var nameTV = v.findViewById<TextView>(R.id.paisAdapter_NameTextView)
+        var colapsableLL = v.findViewById<LinearLayout>(R.id.paisAdapter_ColapsableLayout)
         var officialTV = v.findViewById<TextView>(R.id.paisAdapter_OfficialTextView)
         var acronymTV = v.findViewById<TextView>(R.id.paisAdapter_AcronymTextView)
         var capitalTV = v.findViewById<TextView>(R.id.paisAdapter_CapitalTextView)
@@ -108,48 +109,16 @@ class PaisAdapter(var con: Context, var paisViewModel: PaisViewModel) :
             "País N° " + position.plus(1).toString() + " de " + showingList.size.toString()
 
         if (booleanMutableList[position]) {
-            holder.officialTV.visibility = View.VISIBLE
-            holder.acronymTV.visibility = View.VISIBLE
-            holder.capitalTV.visibility = View.VISIBLE
-            holder.regionTV.visibility = View.VISIBLE
-            holder.subregionTV.visibility = View.VISIBLE
-            holder.areaTV.visibility = View.VISIBLE
-            holder.populationTV.visibility = View.VISIBLE
-            holder.continentTV.visibility = View.VISIBLE
-            holder.buttonsLL.visibility = View.VISIBLE
+            holder.colapsableLL.visibility = View.VISIBLE
         } else {
-            holder.officialTV.visibility = View.GONE
-            holder.acronymTV.visibility = View.GONE
-            holder.capitalTV.visibility = View.GONE
-            holder.regionTV.visibility = View.GONE
-            holder.subregionTV.visibility = View.GONE
-            holder.areaTV.visibility = View.GONE
-            holder.populationTV.visibility = View.GONE
-            holder.continentTV.visibility = View.GONE
-            holder.buttonsLL.visibility = View.GONE
+            holder.colapsableLL.visibility = View.GONE
         }
         holder.nameTV.setOnClickListener {
             if (booleanMutableList[position]) {
-                holder.officialTV.visibility = View.GONE
-                holder.acronymTV.visibility = View.GONE
-                holder.capitalTV.visibility = View.GONE
-                holder.regionTV.visibility = View.GONE
-                holder.subregionTV.visibility = View.GONE
-                holder.areaTV.visibility = View.GONE
-                holder.populationTV.visibility = View.GONE
-                holder.continentTV.visibility = View.GONE
-                holder.buttonsLL.visibility = View.GONE
+                holder.colapsableLL.visibility = View.GONE
                 booleanMutableList[position] = false
             } else {
-                holder.officialTV.visibility = View.VISIBLE
-                holder.acronymTV.visibility = View.VISIBLE
-                holder.capitalTV.visibility = View.VISIBLE
-                holder.regionTV.visibility = View.VISIBLE
-                holder.subregionTV.visibility = View.VISIBLE
-                holder.areaTV.visibility = View.VISIBLE
-                holder.populationTV.visibility = View.VISIBLE
-                holder.continentTV.visibility = View.VISIBLE
-                holder.buttonsLL.visibility = View.VISIBLE
+                holder.colapsableLL.visibility = View.VISIBLE
                 booleanMutableList[position] = true
             }
         }

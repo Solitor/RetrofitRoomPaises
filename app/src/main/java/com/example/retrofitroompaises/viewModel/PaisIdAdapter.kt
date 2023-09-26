@@ -1,5 +1,6 @@
 package com.example.retrofitroompaises.viewModel
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -25,6 +26,7 @@ class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var idTV = v.findViewById<TextView>(R.id.paisIdAdapter_IdTextView)
+        var colapsableLL = v.findViewById<LinearLayout>(R.id.paisIdAdapter_ColapsableLayout)
         var nameTV = v.findViewById<TextView>(R.id.paisIdAdapter_NameTextView)
         var officialTV = v.findViewById<TextView>(R.id.paisIdAdapter_OfficialTextView)
         var acronymTV = v.findViewById<TextView>(R.id.paisIdAdapter_AcronymTextView)
@@ -51,6 +53,7 @@ class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
         return showingList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("LOOKOUT_UAV2", "onBindViewHolder")
         Log.d("LOOKOUT_UAV2", "POSITION: ${position}")
@@ -109,57 +112,21 @@ class PaisIdAdapter(var con: Context, var paisViewModel: PaisViewModel) :
             "País N° " + position.plus(1).toString() + " de " + showingList.size.toString()
 
         if (booleanMutableList[position]) {
-            holder.nameTV.visibility = View.VISIBLE
-            holder.officialTV.visibility = View.VISIBLE
-            holder.acronymTV.visibility = View.VISIBLE
-            holder.capitalTV.visibility = View.VISIBLE
-            holder.regionTV.visibility = View.VISIBLE
-            holder.subregionTV.visibility = View.VISIBLE
-            holder.areaTV.visibility = View.VISIBLE
-            holder.populationTV.visibility = View.VISIBLE
-            holder.continentTV.visibility = View.VISIBLE
-            holder.buttonsLL.visibility = View.VISIBLE
+            holder.colapsableLL.visibility = View.VISIBLE
             holder.idTV.text = "Id: [" + showingList[position].id.toString() + "]"
         } else {
-            holder.nameTV.visibility = View.GONE
-            holder.officialTV.visibility = View.GONE
-            holder.acronymTV.visibility = View.GONE
-            holder.capitalTV.visibility = View.GONE
-            holder.regionTV.visibility = View.GONE
-            holder.subregionTV.visibility = View.GONE
-            holder.areaTV.visibility = View.GONE
-            holder.populationTV.visibility = View.GONE
-            holder.continentTV.visibility = View.GONE
-            holder.buttonsLL.visibility = View.GONE
+            holder.colapsableLL.visibility = View.GONE
             holder.idTV.text =
                 "[" + showingList[position].id.toString() + "] " + showingList[position].name.toString()
         }
         holder.idTV.setOnClickListener {
             if (booleanMutableList[position]) {
-                holder.nameTV.visibility = View.GONE
-                holder.officialTV.visibility = View.GONE
-                holder.acronymTV.visibility = View.GONE
-                holder.capitalTV.visibility = View.GONE
-                holder.regionTV.visibility = View.GONE
-                holder.subregionTV.visibility = View.GONE
-                holder.areaTV.visibility = View.GONE
-                holder.populationTV.visibility = View.GONE
-                holder.continentTV.visibility = View.GONE
-                holder.buttonsLL.visibility = View.GONE
+                holder.colapsableLL.visibility = View.GONE
                 holder.idTV.text =
                     "[" + showingList[position].id.toString() + "] " + showingList[position].name.toString()
                 booleanMutableList[position] = false
             } else {
-                holder.nameTV.visibility = View.VISIBLE
-                holder.officialTV.visibility = View.VISIBLE
-                holder.acronymTV.visibility = View.VISIBLE
-                holder.capitalTV.visibility = View.VISIBLE
-                holder.regionTV.visibility = View.VISIBLE
-                holder.subregionTV.visibility = View.VISIBLE
-                holder.areaTV.visibility = View.VISIBLE
-                holder.populationTV.visibility = View.VISIBLE
-                holder.continentTV.visibility = View.VISIBLE
-                holder.buttonsLL.visibility = View.VISIBLE
+                holder.colapsableLL.visibility = View.VISIBLE
                 holder.idTV.text = "Id: [" + showingList[position].id.toString() + "]"
                 booleanMutableList[position] = true
             }

@@ -103,6 +103,13 @@ class MainFragment : Fragment() {
                 .commit()
         }
 
+        menuHandler.fabLogFragment.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.masterFrameLayout, LogFragment(paisViewModel))
+                .addToBackStack(null)
+                .commit()
+        }
+
         return view
 
     }

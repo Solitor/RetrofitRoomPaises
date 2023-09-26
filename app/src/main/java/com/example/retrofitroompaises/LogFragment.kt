@@ -15,47 +15,44 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitroompaises.data.RetrofitClient
-import com.example.retrofitroompaises.handler.AlertDialogIdHandler
-import com.example.retrofitroompaises.handler.DataIdHandler
+import com.example.retrofitroompaises.handler.AlertDialogHandler
+import com.example.retrofitroompaises.handler.DataHandler
+import com.example.retrofitroompaises.handler.DataLogHandler
 import com.example.retrofitroompaises.handler.JsonHandler
-import com.example.retrofitroompaises.viewModel.PaisIdAdapter
+import com.example.retrofitroompaises.viewModel.LogAdapter
+import com.example.retrofitroompaises.viewModel.PaisAdapter
 import com.example.retrofitroompaises.viewModel.PaisViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
+class LogFragment(private val paisViewModel: PaisViewModel) : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var paisIdAdapter: PaisIdAdapter
+    private lateinit var logAdapter: LogAdapter
     private lateinit var searchEditText: EditText
     private var searchQuery: String = ""
-    private lateinit var alertDialogIdHandler: AlertDialogIdHandler
-    private lateinit var dataIdHandler: DataIdHandler
-    private lateinit var jsonHandler: JsonHandler
+    private lateinit var dataLogHandler: DataLogHandler
     private lateinit var spinnerFilter: Spinner
-    private lateinit var fabAdd: FloatingActionButton
     private lateinit var fabBackFragment: FloatingActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_id, container, false)
+        val view = inflater.inflate(R.layout.fragment_log, container, false)
 
-        recyclerView = view.findViewById(R.id.fragmentId_RecyclerView)
-        searchEditText = view.findViewById(R.id.fragmentId_SearchBar)
+        recyclerView = view.findViewById(R.id.fragmentLog_RecyclerView)
+        searchEditText = view.findViewById(R.id.fragmentLog_SearchBar)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        paisIdAdapter = PaisIdAdapter(
+        logAdapter = LogAdapter(
             requireContext(),
             paisViewModel
         )
-        recyclerView.adapter = paisIdAdapter
-        dataIdHandler = DataIdHandler(paisViewModel, paisIdAdapter, viewLifecycleOwner)
-        jsonHandler = JsonHandler(paisViewModel, RetrofitClient.apiService, lifecycleScope)
-        alertDialogIdHandler =
-            AlertDialogIdHandler(requireContext(), paisViewModel, dataIdHandler, jsonHandler)
+        recyclerView.adapter = logAdapter
+        dataLogHandler = DataLogHandler(paisViewModel, logAdapter, viewLifecycleOwner)
 
-        dataIdHandler.findCountryById(searchQuery)
+        dataLogHandler.findChangeLogByIdNewest(searchQuery)
 
-        spinnerFilter = view.findViewById(R.id.fragmentId_SpinnerFilter)
+        spinnerFilter = view.findViewById(R.id.fragmentLog_SpinnerFilter)
 
         spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -76,17 +73,12 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 searchQuery = s.toString().trim()
-                Log.d("LOOKOUT_UAV2", "findPaisByNome call searchEditText")
+                Log.d("LOOKOUT_UAV2", "findChangeLogByIdNewest call searchEditText")
                 filterData(searchQuery, spinnerFilter.selectedItemPosition)
             }
         })
 
-        fabAdd = view.findViewById(R.id.fragmentId_fabAdd)
-        fabAdd.setOnClickListener{
-            alertDialogIdHandler.showAddAlertDialog()
-        }
-
-        fabBackFragment = view.findViewById(R.id.fragmentId_fabBackFragment)
+        fabBackFragment = view.findViewById(R.id.fragmentLog_fabBackFragment)
         fabBackFragment.setOnClickListener{
             parentFragmentManager.popBackStack()
         }
@@ -97,11 +89,30 @@ class IdFragment(private val paisViewModel: PaisViewModel) : Fragment() {
     private fun filterData(searchQuery: String, filterOption: Int) {
         when (filterOption) {
             0 -> {
-                dataIdHandler.findCountryById(searchQuery)
+                dataLogHandler.findChangeLogByIdNewest(searchQuery)
             }
             1 -> {
-                dataIdHandler.findCountryByIdDesc(searchQuery)
+                dataLogHandler.findChangeLogByIdOldest(searchQuery)
+            }
+            2 -> {
+                dataLogHandler.findChangeLogByIdNewestOperation(searchQuery,"INSERT")
+            }
+            3 -> {
+                dataLogHandler.findChangeLogByIdOldestOperation(searchQuery,"INSERT")
+            }
+            4 -> {
+                dataLogHandler.findChangeLogByIdNewestOperation(searchQuery,"UPDATE")
+            }
+            5 -> {
+                dataLogHandler.findChangeLogByIdOldestOperation(searchQuery,"UPDATE")
+            }
+            6 -> {
+                dataLogHandler.findChangeLogByIdNewestOperation(searchQuery,"DELETE")
+            }
+            7 -> {
+                dataLogHandler.findChangeLogByIdOldestOperation(searchQuery,"DELETE")
             }
         }
     }
+
 }
